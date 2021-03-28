@@ -3,7 +3,7 @@ const petFinderKey = "IERoPwTvvsgAtqgT71P7EhCx8nLMCsx4xvvP0zywOA6eSzWWal"
 const petFinderSecret = "InqFifeZbO9QOwtLXTDQROwrzovrIbF2YfKVVl0o"
 
 
-async function petfinderapi (req, res) {
+export default async (req, res) => {
   const params = new URLSearchParams();
   params.append("grant_type", "client_credentials");
   params.append("client_id", petFinderKey);
@@ -18,9 +18,3 @@ async function petfinderapi (req, res) {
   const data = await petfinderRes.json();
   res.send(data);
 };
-
-
-export  default {
-    petfinderapi
-}
-

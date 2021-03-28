@@ -75,10 +75,10 @@ const SearchScreen = () => {
                         <li className="list-group-item" key={pet.id}>
 
                             <Link to={`/details/${pet.id}`}>
-                                <h5><div className="p-3 mb-2 bg-warning text-dark">Pet Name: {pet.name}</div></h5>
+                                <div className="p-3 mb-2 bg-warning text-dark">Dog Name: {pet.name}</div>
                             </Link>
                             <br/>
-                            <div className="p-3 mb-2 bg-light text-dark">Pet Gender: {pet.gender}</div>
+                            <div className="p-3 mb-2 bg-light text-dark">Dog Gender: {pet.gender}</div>
                             <div className="p-3 mb-2 bg-light text-dark">Age: {pet.age}</div>
                             <div className="p-3 mb-2 bg-light text-dark">Description: {pet.description}</div>
                         </li>
