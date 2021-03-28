@@ -52,7 +52,7 @@ const SearchScreen = () => {
     return (
         <div>
             <h2 className="text-warning">Search Screen</h2>
-            <input value={searchTitle}
+            <input placeholder="please enter either dog or cat" value={searchTitle}
                    onChange={(event) => {
                        setSearchTitle((event.target.value))
 
