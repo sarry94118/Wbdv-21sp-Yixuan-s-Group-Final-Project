@@ -1,6 +1,6 @@
 import React, {useContext, useEffect, useState} from 'react'
 import {Link, useHistory, useParams} from 'react-router-dom'
-import movieService from '../services/movie-service'
+import petService from '../services/pet-service'
 import {AuthContext} from "../App"
 
 
@@ -10,11 +10,11 @@ const DetailsScreen = () => {
     const [pet, setPet] = useState({animal:{}})
     const accessToken = useContext(AuthContext);
     useEffect(() => {
-        findMovieByImdbID()
+        findPetByID()
     }, [])
 
-    const findMovieByImdbID = () => {
-        movieService.findMovieByImdbID(id, accessToken)
+    const findPetByID = () => {
+        petService.findPetByID(id, accessToken)
             .then((data) => {
                 setPet(data)
             })
@@ -29,14 +29,6 @@ const DetailsScreen = () => {
             <div>
                 <ul>
                     {
-                        // <h2>Dog Breed: <h2>
-                        //     {
-                        //         pet.animal.breeds.map((charaacter) => {
-                        //             return
-                        //             {charaacter.primary}
-                        //         })
-                        //     }
-
 
                         <li className="list-group-item" key={pet.animal.id}>
                             {

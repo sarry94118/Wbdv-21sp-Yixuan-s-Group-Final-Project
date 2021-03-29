@@ -36,6 +36,7 @@ import SearchScreen from "./components/search-screen";
 import DetailsScreen from "./components/details-screen";
 import  {BrowserRouter, Route} from 'react-router-dom'
 import HomeScreen from "./components/home-screen";
+import DogCatSearch from "./components/dogcat-search"
 import api from "./api/oauth-token"
 
 export const AuthContext = createContext();
@@ -82,11 +83,15 @@ function App() {
                 <Route path="/" exact={true}>
                     <HomeScreen/>
                 </Route>
-                <Route path={["/search", "/search/:breed"]}
+                <Route path={["/search"]}
+                       exact={true}>
+                    <DogCatSearch/>
+                </Route>
+                <Route path={["/search/:type/:breed"]}
                        exact={true}>
                     <SearchScreen/>
                 </Route>
-                <Route path="/details/:id" exact={true}>
+                <Route path="/details/:type/:id" exact={true}>
                     <DetailsScreen/>
                 </Route>
             </BrowserRouter>
