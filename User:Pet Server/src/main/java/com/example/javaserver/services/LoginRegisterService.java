@@ -11,10 +11,10 @@ public class LoginRegisterService {
     private List<LoginRegister> users = new ArrayList<>();
     {
 
-        LoginRegister l1 = new LoginRegister("1234", "sarry", "123", "admin");
-        LoginRegister l2 = new LoginRegister("1235", "alex", "123", "user");
-        LoginRegister l3 = new LoginRegister("1236", "lee", "123", "user");
-        LoginRegister l4 = new LoginRegister("1237", "jose", "123", "user");
+        LoginRegister l1 = new LoginRegister("1234", "sarry", "cheng", "opas@yahoo.com", "sarry", "123", "admin");
+        LoginRegister l2 = new LoginRegister("1235", "alex", "Chen", "qwee@qq.com","alex", "123", "user");
+        LoginRegister l3 = new LoginRegister("1236", "lily", "lee", "vxcf@gmail.com","lee", "123", "user");
+        LoginRegister l4 = new LoginRegister("1237", "jose", "Andy", "asrar@yahoo.com","jose", "123", "user");
 
         users.add(l1);
         users.add(l2);

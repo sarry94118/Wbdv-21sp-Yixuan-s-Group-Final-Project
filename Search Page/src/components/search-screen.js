@@ -1,6 +1,7 @@
 import React, {useState, useEffect, useContext} from 'react'
 import {Link, useParams, useHistory} from 'react-router-dom'
 import petService from "../services/pet-service"
+import petSelfService from "../services/self-created-pet-service"
 import {AuthContext} from "../App"
 const petFinderKey = "IERoPwTvvsgAtqgT71P7EhCx8nLMCsx4xvvP0zywOA6eSzWWal"
 const petFinderSecret = "InqFifeZbO9QOwtLXTDQROwrzovrIbF2YfKVVl0o"
@@ -10,7 +11,7 @@ const SearchScreen = () => {
     const history = useHistory()
     const {type} = useParams();
     const {breed} = useParams();
-    // const [searchType, setSearchType] = useState(type)
+    const [petBreedResult, setPetBreedResult] = useState([])
     const [typeResults, setTypeResults] = useState({animals: []})
     const [breedResults, setBreedResults] = useState({animals: []})
     const accessToken = useContext(AuthContext);
@@ -19,7 +20,8 @@ const SearchScreen = () => {
 
     useEffect(() => {
 
-        setBreedResults(breed);
+        setBreedResults(breed)
+        findSelfBreed(breed)
         findPetByTypes(type, accessToken)
         findBreed(breed, accessToken)
 
@@ -48,9 +50,25 @@ const SearchScreen = () => {
 
             })
     }
+    const findSelfBreed = (breed) => {
+        // history.push(`/search/${type}/${breed}`)
+        // // history.push(breed)
+
+        petSelfService.findBreed(breed)
+            .then((breedResults) => {
+                setPetBreedResult(breedResults)
+                console.log(breedResults)
+            })
+    }
+
+
+
     return (
         <div>
-            <button onClick={() => {history.goBack()}}>Back</button>
+            <Link to="/search">
+                <buttin>Back</buttin>
+            </Link>
+            {/*<button onClick={() => {history.goBack()}}>Back</button>*/}
             <h2 className="text-warning">Search Screen</h2>
             <input placeholder="please enter breed name"
                    onChange={(event) => {
@@ -71,6 +89,7 @@ const SearchScreen = () => {
             <button
                 onClick={() => {
                     setFirst(true)
+                    findSelfBreed(breedResults)
                     findBreed(breedResults, accessToken)
                 }}
                 className="btn btn-primary form-control btn btn-warning">Search
@@ -82,6 +101,21 @@ const SearchScreen = () => {
                 // first === true &&
                 <>
                 <ul className="list-group">
+                    {/*{JSON.stringify(petBreedResult)}*/}
+                    {
+                        petBreedResult && petBreedResult.map(selfPet =>
+                        <li className="list-group-item" key={selfPet.petId}>
+                            <Link to={`/details/${breed}/${selfPet.petId}`}>
+                                <div className="p-3 mb-2 bg-warning text-dark"> Name: {selfPet.name}</div>
+                            </Link>
+                        <br/>
+                        <div className="p-3 mb-2 bg-light text-dark">Pet Gender: {selfPet.gender}</div>
+                        <div className="p-3 mb-2 bg-light text-dark">Age: {selfPet.age}</div>
+                        <div className="p-3 mb-2 bg-light text-dark">Description: {selfPet.description}</div>
+                        </li>
+                        )
+                    }
+
 
                     {
                         // results && results.animals && results.animals.photos
@@ -92,7 +126,7 @@ const SearchScreen = () => {
                             <li className="list-group-item" key={pet.id}>
                                 {/*<img src={pet.photos[0].medium} width={250} style={{float:"right"}}/>*/}
 
-                                <Link to={`/details/${type}/${pet.id}`}>
+                                <Link to={`/details/${breed}/${pet.id}`}>
                                     <div className="p-3 mb-2 bg-warning text-dark"> Name: {pet.name}</div>
                                 </Link>
                                 <br/>

@@ -12,6 +12,24 @@ public class PetInfo {
     private Integer height;
     private String status;
     private String description;
+    private String city;
+    private String zipcode;
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getZipcode() {
+        return zipcode;
+    }
+
+    public void setZipcode(String zipcode) {
+        this.zipcode = zipcode;
+    }
 
     public Long getPetId() {
         return petId;
@@ -101,7 +119,7 @@ public class PetInfo {
         this.description = description;
     }
 
-    public PetInfo(Long petId, String userId, String breed, String name, String gender, Integer age, String image, Integer width, Integer height, String status, String description) {
+    public PetInfo(Long petId, String userId, String breed, String name, String gender, Integer age, String image, Integer width, Integer height, String status, String description, String city, String zipcode) {
         this.petId = petId;
         this.userId = userId;
         this.breed = breed;
@@ -113,6 +131,8 @@ public class PetInfo {
         this.height = height;
         this.status = status;
         this.description = description;
+        this.city = city;
+        this.zipcode = zipcode;
     }
 
     public PetInfo() {

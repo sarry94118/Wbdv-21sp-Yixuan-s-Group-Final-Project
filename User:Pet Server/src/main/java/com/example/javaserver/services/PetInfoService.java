@@ -14,10 +14,10 @@ public class PetInfoService {
     private List<PetInfo> pets = new ArrayList<>();
     {
 
-        PetInfo p1 = new PetInfo(234l, "1235", "corgi", "orange", "female", 4, "", null, null, "adopatable", "cute doggy!");
-        PetInfo p2 = new PetInfo(235l, "1235", "husky", "apple", "male", 3, "", null, null, "adopatable", "cute doggy!");
-        PetInfo p3 = new PetInfo(236l, "1236", "chihuahua", "bun", "female", 7, "", null, null, "adopatable", "cute doggy!");
-        PetInfo p4 = new PetInfo(237l, "1237", "bichon", "dudu", "female", 9, "", null, null, "adopatable", "cute doggy!");
+        PetInfo p1 = new PetInfo(234l, "1235", "corgi", "orange", "female", 4, "https://s3.amazonaws.com/cdn-origin-etr.akc.org/wp-content/uploads/2017/11/14112506/Pembroke-Welsh-Corgi-standing-outdoors-in-the-fall.jpg", null, null, "adopatable", "cute doggy!", "San Jose", "95123");
+        PetInfo p2 = new PetInfo(235l, "1235", "husky", "apple", "male", 3, "", null, null, "adopatable", "cute doggy!", "Seattle", "");
+        PetInfo p3 = new PetInfo(236l, "1236", "chihuahua", "bun", "female", 7, "", null, null, "adopatable", "cute doggy!", "New York City", "10001");
+        PetInfo p4 = new PetInfo(237l, "1237", "bichon", "dudu", "female", 9, "", null, null, "adopatable", "cute doggy!", "","");
 
         pets.add(p1);
         pets.add(p2);
@@ -33,7 +33,30 @@ public class PetInfoService {
         return pet;
     }
 
+
+    public List<PetInfo>  findPetByBreed(String breed) {
+
+        List<PetInfo> pt = new ArrayList<>();
+        for(PetInfo p:pets) {
+            if(p.getBreed().equals(breed)) {
+                pt.add(p);
+            }
+        }
+        return pt;
+    }
+
     public List<PetInfo> findAllPets(){return pets;}
+
+    public List<PetInfo> findPetForId(Long pid) {
+        List<PetInfo> pt = new ArrayList<>();
+        for(PetInfo p:pets) {
+            if(p.getPetId().equals(pid)) {
+                pt.add(p);
+            }
+        }
+        return pt;
+    }
+
 
     public List<PetInfo> findPetForUser(String userId) {
         List<PetInfo> pt = new ArrayList<>();
