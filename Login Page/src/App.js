@@ -4,13 +4,14 @@ import '@fortawesome/fontawesome-free/css/all.min.css';
 import './App.css';
 import {BrowserRouter} from "react-router-dom";
 import {BrowserRouter as Router, Switch, Route, Link} from "react-router-dom";
-import Login from "./components/login";
-import SignUp from "./components/register";
-import Profile from "./components/profile";
+import Login from "./components/login/login";
+import SignUp from "./components/login/register";
+import Profile from "./components/login/profile";
 import PostTable from "./components/table/pet-list";
 import PostGrid from "./components/grid/pet-grid";
-import ResetPassword from "./components/ResetPassword"
+import ResetPassword from "./components/login/ResetPassword"
 import React from 'react';
+import UserManagement from "./components/user-management"
 
 function App() {
   return (
@@ -36,24 +37,27 @@ function App() {
 
           <div className="auth-wrapper">
             <div className="auth-inner">
-                <Route path="/" exact={true}>
-                  <Login/>
-                </Route>
-              <Route path="/login" exact={true}>
-                <Login/>
+              <Route path="/">
+                <UserManagement/>
               </Route>
-              <Route path="/register" exact={true}>
-                <SignUp/>
-              </Route>
-              <Route path="/profile">
-                  <Profile/>
-              </Route>
+              {/*  <Route path="/" exact={true}>*/}
+              {/*    <Login/>*/}
+              {/*  </Route>*/}
+              {/*<Route path="/login" exact={true}>*/}
+              {/*  <Login/>*/}
+              {/*</Route>*/}
+              {/*<Route path="/register" exact={true}>*/}
+              {/*  <SignUp/>*/}
+              {/*</Route>*/}
+              {/*<Route path="/profile" exact = {true}>*/}
+              {/*    <Profile/>*/}
+              {/*</Route>*/}
               <Route path="/petlist">
                 <PostTable/>
               </Route>
-              <Route path="/reset">
-                <ResetPassword/>
-              </Route>
+              {/*<Route path="/reset">*/}
+              {/*  <ResetPassword/>*/}
+              {/*</Route>*/}
                 <Route path="/post/grid">
                     <PostGrid/>
                 </Route>
