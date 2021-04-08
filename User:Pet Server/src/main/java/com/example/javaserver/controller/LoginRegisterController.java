@@ -12,12 +12,12 @@ public class LoginRegisterController {
     @Autowired
     LoginRegisterService service;
 
-    @PostMapping("/api/users/{uid}/user")
+    @PostMapping("/api/users/username/{username}")
     public LoginRegister createUser(
-            @PathVariable("uid") String userId,
+            @PathVariable("username") String username,
             @RequestBody LoginRegister user) {
-
-        return service.createUser(userId, user);
+        return service.createUser(user);
+//        return service.createUser(username, user);
     }
 
 
@@ -31,21 +31,26 @@ public class LoginRegisterController {
 //        return service.findWidgetForDelete(widgetId);
 //    }
 
-    @GetMapping("/api/users/{uid}/user")
-    public List<LoginRegister> findWidgetsForTopic(@PathVariable("uid") String userId) {
-        return service.findUser(userId);
+    @GetMapping("/api/users/username/{user}")
+    public List<LoginRegister> findUserbyUsername(@PathVariable("user") String user) {
+        return service.findUserByUsername(user);
     }
 
-    @DeleteMapping("/api/users/{uid}")
+    @GetMapping("/api/users/userid/{uid}")
+    public List<LoginRegister> findUserByUid(@PathVariable("uid") Long uid) {
+        return service.findUserByUid(uid);
+    }
+
+    @DeleteMapping("/api/users/userid/{uid}")
     public Integer deleteUser(
-            @PathVariable("uid")String userId) {
+            @PathVariable("uid")Long userId) {
         return service.deleteUser(userId);
 
     }
 
-    @PutMapping("/api/users/{uid}")
+    @PutMapping("/api/users/userid/{uid}")
     public Integer updateUser(
-            @PathVariable("uid") String userId,
+            @PathVariable("uid") Long userId,
             @RequestBody LoginRegister user) {
         return service.updateUser(userId, user);
     }

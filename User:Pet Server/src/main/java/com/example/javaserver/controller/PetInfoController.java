@@ -18,7 +18,7 @@ public class PetInfoController {
 
     @PostMapping("/api/pets/{uid}/pet")
     public PetInfo creatPet(
-            @PathVariable("uid") String userId,
+            @PathVariable("uid") Long userId,
             @RequestBody PetInfo pet) {
 
         return service.createPet(userId, pet);
@@ -31,7 +31,7 @@ public class PetInfoController {
     }
 
     @GetMapping("/api/pets/{uid}/pet")
-    public List<PetInfo> findPetForUser(@PathVariable("uid") String userId) {
+    public List<PetInfo> findPetForUser(@PathVariable("uid") Long userId) {
         return service.findPetForUser(userId);
     }
 

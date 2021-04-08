@@ -2,7 +2,7 @@ package com.example.javaserver.models;
 
 public class PetInfo {
     private Long petId;
-    private String userId;
+    private Long userId;
     private String breed;
     private String name;
     private String gender;
@@ -39,11 +39,11 @@ public class PetInfo {
         this.petId = petId;
     }
 
-    public String getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
-    public void setUserId(String userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 
@@ -119,7 +119,7 @@ public class PetInfo {
         this.description = description;
     }
 
-    public PetInfo(Long petId, String userId, String breed, String name, String gender, Integer age, String image, Integer width, Integer height, String status, String description, String city, String zipcode) {
+    public PetInfo(Long petId, Long userId, String breed, String name, String gender, Integer age, String image, Integer width, Integer height, String status, String description, String city, String zipcode) {
         this.petId = petId;
         this.userId = userId;
         this.breed = breed;

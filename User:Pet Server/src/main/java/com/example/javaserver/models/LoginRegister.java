@@ -1,7 +1,7 @@
 package com.example.javaserver.models;
 
 public class LoginRegister {
-    private String userId;
+    private Long userId;
     private String username;
     private String password;
     private String userType;
@@ -33,11 +33,11 @@ public class LoginRegister {
         this.email = email;
     }
 
-    public String getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
-    public void setUserId(String userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 
@@ -65,7 +65,7 @@ public class LoginRegister {
         this.userType = userType;
     }
 
-    public LoginRegister(String userId, String firstName, String lastName, String email, String username, String password, String userType) {
+    public LoginRegister(Long userId, String firstName, String lastName, String email, String username, String password, String userType) {
         this.userId = userId;
         this.username = username;
         this.password = password;
