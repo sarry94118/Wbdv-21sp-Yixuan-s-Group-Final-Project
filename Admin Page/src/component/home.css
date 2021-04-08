@@ -1,0 +1,12 @@
+.wm-logo{
+    margin-top: 20px;
+}
+
+a:link a:visited a:hover{
+    color: white;
+}
+
+.wm-link{
+    margin-left: 20px;
+    color: white;
+}
