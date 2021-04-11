@@ -12,6 +12,7 @@ const UserManagement =() => {
 
     const [user, setUser] = useState({})
     const [users, setUsers] = useState([])
+    // const [serverUser, setServerUser] = useState({username:"", password:""})
 
 
 
@@ -26,12 +27,12 @@ const UserManagement =() => {
             .then(users => setUsers(users))
     }
 
-    const findUserForUsername =(user) => {
-        userService.findUserForUsername(user.username)
+    const findUserForUsername =(uuser) => {
+        userService.findUserForUsername(uuser.username)
             .then((newUser) => {
                 setUser(newUser)
                 console.log("finduser")
-                console.log(newUser)})
+                console.log(user)})
 
     }
 
@@ -61,7 +62,7 @@ const UserManagement =() => {
 
     const resetUser = (resetuser) => {
         userService.findUserForUsername(resetuser.username)
-            .then(mapuser=> {updateUser(mapuser[0].userId, {...resetuser, userId:mapuser[0].userId})
+            .then(mapuser=> {updateUser(mapuser.userId, {...resetuser, userId:mapuser.userId})
 
     })}
 
@@ -97,14 +98,15 @@ const UserManagement =() => {
                     <Profile
                         findUserForUsername = {findUserForUsername}
                         updateUser={updateUser}
-                        user={user[0]} />
+                        user={user}
+                      />
 
                 </Route>
                 <Route path="/reset" exact={true}>
                     <ResetPassword
                         findUserForUsername = {findUserForUsername}
                         resetUser={resetUser}
-                        user={user[0]} />
+                        user={user} />
 
                 </Route>
                 {/*<Route path="/" exact={true}>*/}

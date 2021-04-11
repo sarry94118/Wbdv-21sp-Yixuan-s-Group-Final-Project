@@ -11,6 +11,18 @@ const SignUp =({addUser, user}) => {
                 <h3>Sign up</h3>
                 {JSON.stringify(changeUser)}
                 <div className="form-group">
+                    <label>User type</label>
+                    <select className="form-group" onChange={(e) =>
+                        setChangeUser({
+                            ...changeUser,
+                            userType:e.target.value
+                        })} value={changeUser.userType}>
+                        <option value={""}>Please select User Type</option>
+                        <option value={"admin"}>Admin</option>
+                        <option value={"user"}>User</option>
+                    </select>
+                </div>
+                <div className="form-group">
                     <label>User name</label>
                     <input type="text" className="form-control"
                            onChange={(e) =>

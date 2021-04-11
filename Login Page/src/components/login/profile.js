@@ -7,9 +7,19 @@ const Profile =({updateUser, findUserForUsername,user})=> {
     const [changeUser, setChangeUser] = useState(user);
 
     // useEffect(() => {
-    //     // findUserForUsername(changeUser)
-    //     console.log(changeUser)
-    // }, [user])
+    //     //     // findUserForUsername(changeUser)
+    //     //     console.log(changeUser)
+    //     // }, [user])
+    //     console.log("profile")
+    //     console.log(user)
+    //     if (changeUser !== "undefined" && typeof changeUser !== "undefined") {
+    //         findUserForUsername(changeUser)
+    //             .then((user)=>{setChangeUser(user)})}
+    //     // } else {
+    //     //     findUserForUsername(changeUser)
+    //     //         .then((user)=>{setChangeUser(user)})
+    //     // }
+    // }, [changeUser])
         return (
             <div>
                 {
@@ -147,5 +157,6 @@ const Profile =({updateUser, findUserForUsername,user})=> {
             </div>
         )
     }
+
 
 export default Profile
