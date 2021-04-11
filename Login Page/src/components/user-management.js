@@ -62,7 +62,7 @@ const UserManagement =() => {
 
     const resetUser = (resetuser) => {
         userService.findUserForUsername(resetuser.username)
-            .then(mapuser=> {updateUser(mapuser.userId, {...resetuser, userId:mapuser.userId})
+            .then(mapuser=> {updateUser(mapuser.userId, {...resetuser, userId:mapuser.userId, userType:mapuser.userType})
 
     })}
 
