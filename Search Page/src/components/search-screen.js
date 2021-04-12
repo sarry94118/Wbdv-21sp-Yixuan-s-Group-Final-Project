@@ -16,6 +16,9 @@ const SearchScreen = () => {
     const [breedResults, setBreedResults] = useState({animals: []})
     const accessToken = useContext(AuthContext);
     const [first, setFirst] = useState(false)
+    const [state, setState] = useState(null)
+    const [city, setCity] = useState(null)
+    const [zipcode, setZipcode] = useState(null)
     // const [accessToken, setAccessToken] = useState(null);
 
     useEffect(() => {
@@ -77,13 +80,47 @@ const SearchScreen = () => {
                    className="form-control"/>
 
            {/*<select onChange={(e) =>*/}
-           {/*    setBreedResults((e.target.value))}>*/}
-           {/*    {*/}
-           {/*        typeResults.animals.map(pet =>*/}
-
-           {/*        <option>Breed: {pet.breeds.primary}</option>*/}
-           {/*        )*/}
-           {/*    }*/}
+           {/*    setState((e.target.value))} value={state} className="form-control">*/}
+           {/*    <option value={"AL"}>AL</option>*/}
+           {/*    <option value={"AK"}>AK</option>*/}
+           {/*    <option value={"AZ"}>AZ</option>*/}
+           {/*    <option value={"AR"}>AR</option>*/}
+           {/*    <option value={"CA"}>CA</option>*/}
+           {/*    <option value={"CO"}>CO</option>*/}
+           {/*    <option value={"CT"}>CT</option>*/}
+           {/*    <option value={"DE"}>DE</option>*/}
+           {/*    <option value={"FL"}>FL</option>*/}
+           {/*    <option value={"GA"}>GA</option>*/}
+           {/*    <option value={"HI"}>HI</option>*/}
+           {/*    <option value={"ID"}>ID</option>*/}
+           {/*    <option value={"IL"}>IL</option>*/}
+           {/*    <option value={"IA"}>IA</option>*/}
+           {/*    <option value={"KY"}>KY</option>*/}
+           {/*    <option value={"ME"}>ME</option>*/}
+           {/*    <option value={"MD"}>MD</option>*/}
+           {/*    <option value={"MA"}>MA</option>*/}
+           {/*    <option value={"MI"}>MI</option>*/}
+           {/*    <option value={"MN"}>MN</option>*/}
+           {/*    <option value={"MS"}>MS</option>*/}
+           {/*    <option value={"MO"}>MO</option>*/}
+           {/*    <option value={"MT"}>MT</option>*/}
+           {/*    <option value={"NE"}>NE</option>*/}
+           {/*    <option value={"NV"}>NV</option>*/}
+           {/*    <option value={"NH"}>NH</option>*/}
+           {/*    <option value={"NJ"}>NJ</option>*/}
+           {/*    <option value={"NM"}>NM</option>*/}
+           {/*    <option value={"NY"}>NY</option>*/}
+           {/*    <option value={"NC"}>NC</option>*/}
+           {/*    <option value={"ND"}>ND</option>*/}
+           {/*    <option value={"OH"}>OH</option>*/}
+           {/*    <option value={"PA"}>PA</option>*/}
+           {/*    <option value={"TX"}>TX</option>*/}
+           {/*    <option value={"UT"}>UT</option>*/}
+           {/*    <option value={"VA"}>VA</option>*/}
+           {/*    <option value={"WA"}>WA</option>*/}
+           {/*    <option value={"WV"}>WV</option>*/}
+           {/*    <option value={"WI"}>WI</option>*/}
+           {/*    <option value={"WY"}>WY</option>*/}
            {/*</select>*/}
 
             <button
@@ -94,7 +131,7 @@ const SearchScreen = () => {
                 }}
                 className="btn btn-primary form-control btn btn-warning">Search
             </button>
-            {/*{JSON.stringify(typeResults)}*/}
+            {/*{JSON.stringify(breedResults.animals)}*/}
             <br/>
             <br/>
             {
@@ -111,6 +148,7 @@ const SearchScreen = () => {
                         <br/>
                         <div className="p-3 mb-2 bg-light text-dark">Pet Gender: {selfPet.gender}</div>
                         <div className="p-3 mb-2 bg-light text-dark">Age: {selfPet.age}</div>
+                        <div className="p-3 mb-2 bg-light text-dark">State: {selfPet.state}</div>
                         <div className="p-3 mb-2 bg-light text-dark">Description: {selfPet.description}</div>
                         </li>
                         )
@@ -132,6 +170,7 @@ const SearchScreen = () => {
                                 <br/>
                                 <div className="p-3 mb-2 bg-light text-dark">Pet Gender: {pet.gender}</div>
                                 <div className="p-3 mb-2 bg-light text-dark">Age: {pet.age}</div>
+                                <div className="p-3 mb-2 bg-light text-dark">State: {pet.contact.address.state}</div>
                                 <div className="p-3 mb-2 bg-light text-dark">Description: {pet.description}</div>
                             </li>
                         )

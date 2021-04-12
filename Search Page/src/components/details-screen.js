@@ -37,30 +37,35 @@ const DetailsScreen = () => {
         <div>
             <button onClick={() => {history.goBack()}}>Back</button>
             {/*{JSON.stringify(petResult)}*/}
+            {/*{JSON.stringify(pet)}*/}
             {
-                petResult[0] &&
+                petResult.petId &&
 
                     <>
-                        <h2>Name: {petResult[0].name}</h2>
+                        <h2>Name: {petResult.name}</h2>
 
                         <div>
                             <ul>
                                 {
 
-                                    <li className="list-group-item" key={petResult[0].petId}>
+                                    <li className="list-group-item" key={petResult.petId}>
                                         {
-                                            petResult[0].image &&
-                                            <img src={petResult[0].image} width={250} style={{float:"right"}}/>
+                                            petResult.image &&
+                                            <img src={petResult.image} width={250} style={{float:"right"}}/>
 
                                         }
                                         {
-                                            petResult[0].breed &&
-                                            <h3>Breeds: {petResult[0].breed}</h3>
+                                            petResult.breed &&
+                                            <h3>Breeds: {petResult.breed}</h3>
                                         }
-                                        <h3>Gender: {petResult[0].gender}</h3>
-                                        <h3>ID: {petResult[0].petId}</h3>
-                                        <h3>Age: {petResult[0].age}</h3>
-                                        <h3>Status: {petResult[0].status}</h3>
+                                        <h3>Gender: {petResult.gender}</h3>
+                                        <h3>ID: {petResult.petId}</h3>
+                                        <h3>Age: {petResult.age}</h3>
+                                        <h3>Status: {petResult.status}</h3>
+                                        <h3>Contact Information:
+                                        <Link to={`/profile/${petResult.userId}`}>
+                                            More Contact Information
+                                        </Link></h3>
                                         <br/>
                                         <br/>
 
@@ -76,7 +81,7 @@ const DetailsScreen = () => {
             }
             {/*{JSON.stringify(pet)}*/}
             {
-                pet.animal &&
+                pet.animal && pet.animal.id &&
                     <>
                         <h2>Name: {pet.animal.name}</h2>
 

@@ -37,6 +37,7 @@ import DetailsScreen from "./components/details-screen";
 import  {BrowserRouter, Route} from 'react-router-dom'
 import HomeScreen from "./components/home-screen";
 import DogCatSearch from "./components/dogcat-search"
+import ProfilePage from "./components/profile-page"
 import api from "./api/oauth-token"
 
 export const AuthContext = createContext();
@@ -93,6 +94,9 @@ function App() {
                 </Route>
                 <Route path="/details/:type/:id" exact={true}>
                     <DetailsScreen/>
+                </Route>
+                <Route path="/profile/:userId" exact={true}>
+                    <ProfilePage/>
                 </Route>
             </BrowserRouter>
         </div>
