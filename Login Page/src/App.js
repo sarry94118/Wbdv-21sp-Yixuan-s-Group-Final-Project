@@ -12,6 +12,9 @@ import PostGrid from "./components/grid/pet-grid";
 import ResetPassword from "./components/login/ResetPassword"
 import React from 'react';
 import UserManagement from "./components/user-management"
+import PetListMainPage from "./components/table/pet-list-main-page";
+import PetCard from "./components/grid/pet-card";
+import PetCardMainPage from "./components/grid/pet-card-main-page"
 
 function App() {
   return (
@@ -52,14 +55,14 @@ function App() {
               {/*<Route path="/profile" exact = {true}>*/}
               {/*    <Profile/>*/}
               {/*</Route>*/}
-              <Route path="/petlist">
-                <PostTable/>
+              <Route path={["/petlist/:userId"]} exact={true}>
+                <PetListMainPage/>
               </Route>
               {/*<Route path="/reset">*/}
               {/*  <ResetPassword/>*/}
               {/*</Route>*/}
-                <Route path="/post/grid">
-                    <PostGrid/>
+                <Route path="/petlist/post/card/:petId" exact={true}>
+                    <PetCardMainPage/>
                 </Route>
             </div>
           </div>
