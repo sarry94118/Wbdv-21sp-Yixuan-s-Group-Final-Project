@@ -61,7 +61,10 @@ const PetCard = (
     const updatePet = (petId, pet) => {
         petService.updatePet(petId, pet)
             .then((pet) => {
-                setUpdatePuppy(pet)
+                {
+                    setUpdatePuppy(pet)
+                }
+                refreshPage()
             })
     }
 
@@ -192,7 +195,7 @@ const PetCard = (
 
                 !edited &&
                 <>
-                    <button onClick={() => refreshPage()}>refresh to see update</button>
+                    {/*<button onClick={() => refreshPage()}>refresh to see update</button>*/}
 
                     <i onClick={() => setEdited(true)} className="fas fa-cog float-right fa-2x">Edit</i>
                     <form>

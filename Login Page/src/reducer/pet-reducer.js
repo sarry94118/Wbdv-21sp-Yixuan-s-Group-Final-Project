@@ -22,10 +22,22 @@ const petsReducer = (state=initialState, action) => {
                 pets: action.pets
             }
         case "DELETE_PET":
-            return {
+            const newstate = {
 
-                pets: state.pets.filter(pet => pet.id !== action.petToDelete)
+                pets: state.pets.filter(pet => {
+                   if(pet.petId === action.petToDelete) {
+                       return false;
+                } else{
+                       return true;
+                   }
+                })
             }
+            return newstate
+        // case "DELETE_PET":
+        //     return {
+        //
+        //         pets: state.pets.filter(pet => pet.id !== action.petToDelete)
+        //     }
 
         case "UPDATE_PET":
             return {

@@ -40,7 +40,7 @@ const PostTable =({
             <div>
                 {/*{JSON.stringify(pets)}*/}
 
-                <button onClick={() => refreshPage()}>refresh to see update</button>
+                {/*<button onClick={() => refreshPage()}>refresh to see update</button>*/}
                 <i className="fas fa-plus-circle float-right fa-2x"
                     onClick={()=>
                         createPet(userId)}></i>
