@@ -31,11 +31,12 @@ const PostTable =({
 
         return(
             <div>
+                {JSON.stringify(pets)}
                 <i className="fas fa-plus-circle float-right fa-2x"
                     onClick={()=>
                         createPet(userId)}></i>
                 <h1>Post Table</h1>
-                {JSON.stringify(updatePet)}
+
 
                 <table className="table table-striped">
                     <thead>

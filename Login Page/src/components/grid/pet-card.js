@@ -5,14 +5,14 @@ import {connect} from "react-redux";
 
 const PetCard = (
     {
-        // pet = {},
+        pet = {},
         // findPetForId,
         // deletePet,
         // updatePet,
     }) => {
 
     const {petId} = useParams()
-    const [updatePuppy, setUpdatePuppy] = useState({})
+    const [updatePuppy, setUpdatePuppy] = useState(pet)
     const [edited, setEdited] = useState(false);
 
     useEffect(() => {
@@ -51,14 +51,16 @@ const PetCard = (
 
     return (
         <div>
+            {JSON.stringify(updatePuppy)}
             {
             edited &&
 
             <form>
 
                     <i onClick={() => {
-                        findPetForId(petId)
                         updatePet(petId, updatePuppy)
+                        setUpdatePuppy(updatePuppy)
+                        findPetForId(petId)
                         setEdited(false)
                         findPetForId(petId)
                     }} className="fas fa-check float-right fa-2x">Update</i>
