@@ -38,6 +38,7 @@ import  {BrowserRouter, Route} from 'react-router-dom'
 import HomeScreen from "./components/home-screen";
 import DogCatSearch from "./components/dogcat-search"
 import ProfilePage from "./components/profile-page"
+
 import api from "./api/oauth-token"
 
 export const AuthContext = createContext();
@@ -80,6 +81,7 @@ function App() {
     return (
         <AuthContext.Provider value={accessToken}>
         <div className="container-fluid">
+
             <BrowserRouter>
                 <Route path="/" exact={true}>
                     <HomeScreen/>
@@ -88,6 +90,7 @@ function App() {
                        exact={true}>
                     <DogCatSearch/>
                 </Route>
+
                 <Route path={["/search/:type/:breed"]}
                        exact={true}>
                     <SearchScreen/>
@@ -99,6 +102,7 @@ function App() {
                     <ProfilePage/>
                 </Route>
             </BrowserRouter>
+
         </div>
         </AuthContext.Provider>
     );

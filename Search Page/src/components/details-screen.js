@@ -42,13 +42,15 @@ const DetailsScreen = () => {
                 petResult.petId &&
 
                     <>
-                        <h2>Name: {petResult.name}</h2>
+
 
                         <div>
                             <ul>
                                 {
 
+
                                     <li className="list-group-item" key={petResult.petId}>
+                                        <h4>Name: {petResult.name}</h4>
                                         {
                                             petResult.image &&
                                             <img src={petResult.image} width={250} style={{float:"right"}}/>
@@ -56,16 +58,16 @@ const DetailsScreen = () => {
                                         }
                                         {
                                             petResult.breed &&
-                                            <h3>Breeds: {petResult.breed}</h3>
+                                            <h4>Breeds: {petResult.breed}</h4>
                                         }
-                                        <h3>Gender: {petResult.gender}</h3>
-                                        <h3>ID: {petResult.petId}</h3>
-                                        <h3>Age: {petResult.age}</h3>
-                                        <h3>Status: {petResult.status}</h3>
-                                        <h3>Contact Information:
+                                        <h4>Gender: {petResult.gender}</h4>
+                                        <h4>ID: {petResult.petId}</h4>
+                                        <h4>Age: {petResult.age}</h4>
+                                        <h4>Status: {petResult.status}</h4>
+                                        <h4>Contact Information:
                                         <Link to={`/profile/${petResult.userId}`}>
                                             More Contact Information
-                                        </Link></h3>
+                                        </Link></h4>
                                         <br/>
                                         <br/>
 

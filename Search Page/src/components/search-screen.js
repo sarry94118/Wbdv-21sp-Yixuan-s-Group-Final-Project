@@ -68,11 +68,16 @@ const SearchScreen = () => {
 
     return (
         <div>
+            <nav className="navbar navbar-expand-lg navbar-light fixed-top">
             <Link to="/search">
-                <buttin>Back</buttin>
+                <i className="far fa-arrow-alt-circle-left"></i>
             </Link>
+            <br/>
             {/*<button onClick={() => {history.goBack()}}>Back</button>*/}
-            <h2 className="text-warning">Search Screen</h2>
+            <h2 className="navbar-brand">Search Screen</h2>
+
+
+
             <input placeholder="please enter breed name"
                    onChange={(event) => {
                        setBreedResults(event.target.value)
@@ -129,9 +134,10 @@ const SearchScreen = () => {
                     findSelfBreed(breedResults)
                     findBreed(breedResults, accessToken)
                 }}
-                className="btn btn-primary form-control btn btn-warning">Search
+                className="btn btn-primary">Search
             </button>
             {/*{JSON.stringify(breedResults.animals)}*/}
+            </nav>
             <br/>
             <br/>
             {
@@ -143,7 +149,7 @@ const SearchScreen = () => {
                         petBreedResult && petBreedResult.map(selfPet =>
                         <li className="list-group-item" key={selfPet.petId}>
                             <Link to={`/details/${breed}/${selfPet.petId}`}>
-                                <div className="p-3 mb-2 bg-warning text-dark"> Name: {selfPet.name}</div>
+                                <div className="p-3 mb-2 bg-info text-white"> Name: {selfPet.name}</div>
                             </Link>
                         <br/>
                         <div className="p-3 mb-2 bg-light text-dark">Pet Gender: {selfPet.gender}</div>
@@ -165,7 +171,7 @@ const SearchScreen = () => {
                                 {/*<img src={pet.photos[0].medium} width={250} style={{float:"right"}}/>*/}
 
                                 <Link to={`/details/${breed}/${pet.id}`}>
-                                    <div className="p-3 mb-2 bg-warning text-dark"> Name: {pet.name}</div>
+                                    <div className="p-3 mb-2 bg-info text-white"> Name: {pet.name}</div>
                                 </Link>
                                 <br/>
                                 <div className="p-3 mb-2 bg-light text-dark">Pet Gender: {pet.gender}</div>
