@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react"
 import {Link, useParams} from "react-router-dom";
 import petService from "../../services/pet-service";
+import { useHistory } from 'react-router'
 import {connect} from "react-redux";
 
 const PetCard = (
@@ -14,23 +15,38 @@ const PetCard = (
     const {petId} = useParams()
     const [updatePuppy, setUpdatePuppy] = useState(pet)
     const [edited, setEdited] = useState(false);
+    const history = useHistory()
+
+
+
 
     useEffect(() => {
         console.log(petId)
         // if(petId !== "undefined" && typeof petId !== "undefined") {
 
         findPetForId(petId)
+
         // setUpdatePuppy(pet)
         console.log("setup")
-        // console.log(pet)
+        console.log(pet)
         console.log(updatePuppy)
 
+
     }, [petId])
+
+    const refreshPage = () =>{
+
+        history.go(0)
+    }
+
 
     const findPetForId = (petId) => {
         petService.findPetForId(petId)
             .then((pet) => {
                 setUpdatePuppy(pet)
+                console.log(pet)
+                // refreshPage()
+
             })
     }
 
@@ -51,18 +67,18 @@ const PetCard = (
 
     return (
         <div>
-            {JSON.stringify(updatePuppy)}
+            {/*{JSON.stringify(updatePuppy)}*/}
             {
             edited &&
 
             <form>
 
                     <i onClick={() => {
-                        updatePet(petId, updatePuppy)
-                        setUpdatePuppy(updatePuppy)
                         findPetForId(petId)
+                        updatePet(petId, updatePuppy)
                         setEdited(false)
                         findPetForId(petId)
+
                     }} className="fas fa-check float-right fa-2x">Update</i>
 
                     {/*<i onClick={() => deletePet(petId)} className="fas fa-trash float-right"></i>*/}
@@ -173,8 +189,11 @@ const PetCard = (
             }
 
             {
+
                 !edited &&
                 <>
+                    <button onClick={() => refreshPage()}>refresh to see update</button>
+
                     <i onClick={() => setEdited(true)} className="fas fa-cog float-right fa-2x">Edit</i>
                     <form>
 
