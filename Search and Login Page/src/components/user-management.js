@@ -46,7 +46,7 @@ const UserManagement =() => {
                         user
                     ]
                 })
-            console.log("creatuser")
+            // console.log("creatuser")
             console.log(users)})
     }
 
@@ -110,24 +110,6 @@ const UserManagement =() => {
                         user={user} />
 
                 </Route>
-                {/*<Route path="/" exact={true}>*/}
-                {/*    <Login*/}
-                {/*        />*/}
-                {/*</Route>*/}
-
-
-                {/*<Route path="/login" exact={true}>*/}
-                {/*    <Login*/}
-                {/*        />*/}
-                {/*</Route>*/}
-                {/*<Route path="/register" exact={true}>*/}
-                {/*    <Register*/}
-                {/*       />*/}
-                {/*</Route>*/}
-                {/*<Route path="/profile" exact={true}>*/}
-                {/*    <Profile*/}
-                {/*       />*/}
-                {/*</Route>*/}
 
 
 

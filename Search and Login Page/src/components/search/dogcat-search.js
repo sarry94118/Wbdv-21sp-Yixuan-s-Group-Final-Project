@@ -15,8 +15,8 @@ const DogCatSearch = () => {
             <nav className="navbar navbar-expand-lg navbar-light fixed-top">
             <h2 className="navbar-brand">Search Page</h2>
             </nav>
-            <div className="auth-wrapper">
-            <div className="auth-inner">
+            {/*<div className="auth-wrapper">*/}
+            {/*<div className="auth-inner">*/}
                 <Link to={`/search/types/dog`}>
                    Dog
                 </Link>
@@ -24,8 +24,8 @@ const DogCatSearch = () => {
                 <Link to={`/search/types/cat`}>
                    Cat
                 </Link>
-            </div>
-            </div>
+            {/*</div>*/}
+            {/*</div>*/}
 
         </form>
     )

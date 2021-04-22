@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import {Link, useHistory, useParams} from 'react-router-dom'
 import newUser from "./login"
 import userService from "../../services/./search-services/user-service";
+import Popup from '../popup/password';
+import Login from "./login";
 
 const Profile =({updateUser, findUserForUsername,user=null, show = false})=> {
     const {userId} = useParams()
@@ -10,6 +12,17 @@ const Profile =({updateUser, findUserForUsername,user=null, show = false})=> {
     const [contact, setContact] = useState({})
     const  history = useHistory();
     const [shows, setShows] = useState(show)
+    const [isOpen, setIsOpen] = useState(false);
+    const [submitted, setSubmitted] = useState(false);
+
+    function isValidEmailAddress(val) {
+        let regEmail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        if (!regEmail.test(val)) {
+            return false;
+
+        }
+        return true;
+    }
 
     useEffect(() => {
         // if (changeUser !== {}) {
@@ -23,7 +36,7 @@ const Profile =({updateUser, findUserForUsername,user=null, show = false})=> {
             console.log(shows)
             findUserByUserId(userId)
         }
-    }, [userId])
+    }, [user])
 
     const findUserByUserId = (userId) => {
         userService.findUserByUserId(userId)
@@ -81,7 +94,7 @@ const Profile =({updateUser, findUserForUsername,user=null, show = false})=> {
 
                 {
                     // changeUser && changeUser[0] && changeUser[0].username &&
-                    shows  && changeUser.username &&
+                    changeUser.username &&
 
                     <form>
                         <h3>Profile</h3>
@@ -89,19 +102,20 @@ const Profile =({updateUser, findUserForUsername,user=null, show = false})=> {
                         {/*{JSON.stringify(contact.name)}*/}
 
                         <div className="form-group">
-                            {
-                                !shows &&
-                                <label>{contact.name}</label>
-                            }
-                            <label>User Name111</label>
+                            {/*{*/}
+                            {/*    !shows &&*/}
+                            {/*    <label>{contact.name}</label>*/}
+                            {/*}*/}
+                            <label>User Name</label>
                             <textarea  className="form-control" value={changeUser.username}
-                                      onChange={(e) =>
-                                          setChangeUser({
-                                              ...changeUser,
-                                              username:e.target.value
-                                          })}
+                                      // onChange={(e) =>
+                                      //     setChangeUser({
+                                      //         ...changeUser,
+                                      //         username:e.target.value
+                                      //     })}
                                       >{changeUser.username}</textarea>
                         </div>
+
 
                         <div className="form-group">
                             <label>First name</label>
@@ -135,6 +149,11 @@ const Profile =({updateUser, findUserForUsername,user=null, show = false})=> {
                                           })}
                                       placeholder="Enter email">{changeUser.email}</textarea>
                         </div>
+                        {
+                            submitted && !isValidEmailAddress(changeUser.email) &&
+                            <div className="alert alert-primary">email address is invalid!!</div>
+
+                        }
 
                         <div className="form-group">
                             <label>Password</label>
@@ -147,76 +166,70 @@ const Profile =({updateUser, findUserForUsername,user=null, show = false})=> {
                                           })}
                                       placeholder="Password">{changeUser.password}</textarea>
                         </div>
-                        <Link to="/profile/">
+                        {
+                            submitted && !changeUser.password &&
+                            <div className="alert alert-primary">password is required!!</div>
+
+                        }
+
+
+
+
+                        {
+                            (!changeUser.password || !isValidEmailAddress(changeUser.email))&&
+                            <Link to={`/profile/${changeUser.userId}`}>
+                                <button
+                                    onClick={() => {
+                                        setSubmitted(true)
+                                    }}
+                                    className="btn btn-primary btn-block">
+
+                                    Update</button>
+                            </Link>
+
+                        }
+                        <br/>
+
+                        {
+                            (!changeUser.password || !isValidEmailAddress(changeUser.email)) &&
+                            <Link to={`/profile/${changeUser.userId}`}>
+                                <button
+                                        onClick={() => {
+                                            setSubmitted(true)
+                                        }}
+                                        className="btn btn-primary btn-block">
+
+                                    See your post</button>
+                            </Link>
+
+                        }
+
+
+                        {
+                            changeUser.username && changeUser.password && isValidEmailAddress(changeUser.email) &&
+                            <Link to="/login">
                             <button className="btn btn-primary btn-block"
                                     onClick={() => {
                                         findUserForUsername(changeUser)
                                         updateUser(changeUser.userId, changeUser)
                                         findUserForUsername(changeUser)
-                                    }}>Update</button>
-                        </Link>
+                                    }}>Update
+                            </button>
+                            </Link>
+                        }
                         <br/>
 
-                        <Link to={`/petlist/${changeUser.userId}`}>
+
+                        {
+                            changeUser.username && changeUser.password && isValidEmailAddress(changeUser.email) &&
+                            <Link to={`/petlist/${changeUser.userId}`}>
                             <button className="btn btn-primary btn-block">See your post</button>
                         </Link>
+                        }
                     </form>
                 }
 
-            {/*{*/}
-            {/*    shows && !changeUser.username &&*/}
 
-            {/*    <form>*/}
-            {/*    <h3>Profile</h3>*/}
-            {/*    /!*<div className="form-group">*!/*/}
-            {/*    /!*    <label>User type</label>*!/*/}
-            {/*    /!*    <select type="text" className="form-select form-control" aria-label="Default select example">*!/*/}
-            {/*    /!*        <option selected>User type</option>*!/*/}
-            {/*    /!*        <option value="1">User</option>*!/*/}
-            {/*    /!*        <option value="2">Admin</option>*!/*/}
-            {/*    /!*    </select>*!/*/}
-            {/*    /!*</div>*!/*/}
-            {/*    /!*{JSON.stringify(contact)}*!/*/}
-            {/*    /!*{JSON.stringify(changeUser)}*!/*/}
-            {/*    <div className="form-group">*/}
-            {/*        <label>User Name222</label>*/}
-            {/*        <textarea type="text" className="form-control" placeholder="User Name" />*/}
-            {/*    </div>*/}
-
-            {/*    <div className="form-group">*/}
-            {/*        <label>First name</label>*/}
-            {/*        <textarea type="text" className="form-control" placeholder="First name" />*/}
-            {/*    </div>*/}
-
-            {/*    <div className="form-group">*/}
-            {/*        <label>Last name</label>*/}
-            {/*        <textarea type="text" className="form-control" placeholder="Last name" />*/}
-            {/*    </div>*/}
-
-            {/*    <div className="form-group">*/}
-            {/*        <label>Email address</label>*/}
-            {/*        <textarea type="email" className="form-control" placeholder="Enter email" />*/}
-            {/*    </div>*/}
-
-            {/*    <div className="form-group">*/}
-            {/*        <label>Password</label>*/}
-            {/*        <textarea type="number" className="form-control" placeholder="Password" />*/}
-            {/*    </div>*/}
-            {/*    <Link to="/profile">*/}
-            {/*        <button className="btn btn-primary btn-block"*/}
-            {/*                onClick={() => {*/}
-            {/*                    findUserForUsername(changeUser)*/}
-            {/*                    updateUser(changeUser)*/}
-            {/*                    findUserForUsername(changeUser)*/}
-            {/*                }}>Update</button>*/}
-            {/*    </Link>*/}
-            {/*    <br/>*/}
-
-            {/*    <Link to="/petlist">*/}
-            {/*        <button className="btn btn-primary btn-block">See your post</button>*/}
-            {/*    </Link>*/}
-            {/*</form>*/}
-            {/*}*/}
 
 
             </div>

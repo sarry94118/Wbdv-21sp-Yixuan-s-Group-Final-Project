@@ -15,7 +15,7 @@ const ResetPassword =({resetUser, findUserForUsername,user}) => {
                                       ...changeUser,
                                       username:e.target.value
                                   })}
-                              placeholder="User Name" />
+                              placeholder="Please type correct User Name" />
                 </div>
 
                 <div className="form-group">

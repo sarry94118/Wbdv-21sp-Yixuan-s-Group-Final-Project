@@ -14,6 +14,7 @@ const SearchScreen = () => {
     const [petBreedResult, setPetBreedResult] = useState([])
     const [typeResults, setTypeResults] = useState({animals: []})
     const [breedResults, setBreedResults] = useState({animals: []})
+    // const [searchResult, setSearchResult] =useState(null)
     // const accessToken = useContext(AuthContext);
     const [first, setFirst] = useState(false)
     const [state, setState] = useState(null)
@@ -38,14 +39,29 @@ const SearchScreen = () => {
             const json = await petfinderRes.json()
             console.log(json.access_token)
             setAccessToken(json.access_token)
+            // findBreed(breed, accessToken)
+
+            petService.findBreed(breed, json.access_token)
+                .then((breedResults) => {
+                    setBreedResults(breedResults)
+                    console.log(breedResults)
+
+                })
+
+            findSelfBreed(breed)
+
+            console.log(petBreedResult)
+            console.log(breedResults)
         }
         fetchAccessToken();
         console.log(breed)
         // setAccess(access)
         // setBreedResults(breed)
-        findSelfBreed(breed)
-        findPetByTypes(type, accessToken)
-        findBreed(breed, accessToken)
+        // findPetByTypes(type, accessToken)
+
+
+        // console.log(petBreedResult)
+        // console.log(breedResults)
 
 
         // setBreedResults(breed)
@@ -54,7 +70,7 @@ const SearchScreen = () => {
         // findBreed(breed, accessToken)
 
 
-    }, [])
+    }, [breed])
     const findPetByTypes = (type, accessToken) => {
         // history.push(`/search/types/${type}`)
         // history.push(breed)
@@ -85,7 +101,7 @@ const SearchScreen = () => {
         petSelfService.findBreed(breed)
             .then((breedResults) => {
                 setPetBreedResult(breedResults)
-                // console.log(breedResults)
+                console.log(breedResults)
             })
     }
 
@@ -124,11 +140,11 @@ const SearchScreen = () => {
             <br/>
             <br/>
             {
-                // first === true &&
                 <>
                 <ul className="list-group">
                     {/*{JSON.stringify(petBreedResult)}*/}
                     {
+
                         petBreedResult && petBreedResult.map(selfPet =>
                         <li className="list-group-item" key={selfPet.petId}>
                             <Link to={`/details/${breed}/${selfPet.petId}`}>
@@ -145,9 +161,7 @@ const SearchScreen = () => {
 
 
                     {
-                        // results && results.animals && results.animals.photos
-                        // && results.animals.photos[0] &&
-                        // results.animals.photos[0].medium && results.animals.map(pet =>
+
 
                         breedResults && breedResults.animals && breedResults.animals.map(pet =>
                             <li className="list-group-item" key={pet.id}>
@@ -164,19 +178,20 @@ const SearchScreen = () => {
                             </li>
                         )
                     }
+                    {
+                        breedResults.status === 400 &&
+                        <ul className="list-group">
+
+                            <div>
+                                <h3>no results!</h3>
+                            </div>
+                        </ul>
+                    }
 
                 </ul>
                 </>
             }
-            {
 
-                <ul className="list-group">
-
-                    <div>
-                        <h3>no results!</h3>
-                    </div>
-                </ul>
-            }
 
         </div>
     )

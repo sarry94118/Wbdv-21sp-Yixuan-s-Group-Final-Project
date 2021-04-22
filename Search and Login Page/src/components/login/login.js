@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Profile from "./profile";
 import {Link} from "react-router-dom";
+import Popup from '../../components/popup/password';
 
 // const newUser = {}
 // export default newUser
@@ -9,6 +10,8 @@ const Login = ({findUserForUsername, users, updateUser, user, serverUser}) => {
 
     const [submitted, setSubmitted] = useState(false);
     const [changeUser, setChangeUser] = useState({username:"", password:""});
+    const [isOpen, setIsOpen] = useState(false);
+
 
 
         return (
@@ -30,6 +33,12 @@ const Login = ({findUserForUsername, users, updateUser, user, serverUser}) => {
                            }}
                            placeholder="Enter username" />
                 </div>
+                {
+                    submitted && !changeUser.username &&
+                    <div className="alert alert-primary">user name is required!!</div>
+
+                }
+
 
                 <div className="form-group">
                     <label>Password</label>
@@ -44,52 +53,56 @@ const Login = ({findUserForUsername, users, updateUser, user, serverUser}) => {
                            }}
                            placeholder="Enter password" />
 
+
+
                     {
-                        submitted && !changeUser.password &&
-                    <div className="alert alert-primary">Password is required!!</div>
+                        submitted && changeUser.password !== user.password &&
+                        <div className="alert alert-primary">password is not correct!!</div>
+
                     }
                     {
-                        submitted && changeUser.password && changeUser.password !== user.password &&
-                        <div className="alert alert-primary">Password is not correct!!</div>
+                        submitted && !changeUser.password &&
+                        <div className="alert alert-primary">password is required!!</div>
+
                     }
                 </div>
 
-                {/*<div className="form-group">*/}
-                {/*    <div className="custom-control custom-checkbox">*/}
-                {/*        <input type="checkbox" className="custom-control-input" id="customCheck1" />*/}
-                {/*        <label className="custom-control-label" htmlFor="customCheck1">Remember me</label>*/}
-                {/*    </div>*/}
-                {/*</div>*/}
 
                 {
-                    !changeUser.password &&
+                    (!changeUser.password || !changeUser.username ||changeUser.password !== user.password) &&
                     <>
+                    <Link to={`/login`}>
                         <button className="btn btn-primary btn-block"
+
                                 onClick={() => {
                                     setSubmitted(true)
                                 }}
                         >Sign In
                         </button>
+                    </Link>
                     </>
                 }
+                {/*{*/}
+                {/*    changeUser.password  && changeUser.password !== user.password &&*/}
+                {/*    <>*/}
+                {/*    <Link to={`/login`}>*/}
+                {/*        <button className="btn btn-primary btn-block"*/}
+                {/*                onClick={() => {*/}
+                {/*                    setSubmitted(true)*/}
+                {/*                }}*/}
+                {/*        >Sign In*/}
+                {/*        </button>*/}
+                {/*    </Link>*/}
+                {/*    </>*/}
+                {/*}*/}
                 {
-                    changeUser.password  && changeUser.password !== user.password &&
-                    <>
-                        <button className="btn btn-primary btn-block"
-                                onClick={() => {
-                                    setSubmitted(true)
-                                }}
-                        >Sign In
-                        </button>
-                    </>
-                }
-                {
-                    changeUser.password  &&  changeUser.password === user.password &&
+                    changeUser.password  && changeUser.username &&  changeUser.password === user.password &&
                     <>
                     <Link to={`/profile/${user.userId}`}>
                         <button className="btn btn-primary btn-block"
                                 onClick={() => {
                                     setSubmitted(true)
+
                                 }}
                         >Sign In
                         </button>
@@ -99,12 +112,11 @@ const Login = ({findUserForUsername, users, updateUser, user, serverUser}) => {
                 <Link to="/reset" passHref>
                     <a lassName="forgot-password text-right">Forgot password?</a>
                 </Link>
-                {/*<p className="forgot-password text-right">*/}
-                {/*     <a href="#">Forgot password?</a>*/}
-                {/*</p>*/}
+
             </form>
         );
     }
+
 
 
 export default Login

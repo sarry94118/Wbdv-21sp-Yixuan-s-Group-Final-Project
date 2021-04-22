@@ -45,6 +45,12 @@ export const findPetForId=(petId) =>
         .then(response => response.json())
 
 
+// export const findPetForId=(petId) =>
+//     fetch(`http://localhost:8080/api/pet/${petId}`)
+//         .then(response => response.json())
+
+
+
 
 
 

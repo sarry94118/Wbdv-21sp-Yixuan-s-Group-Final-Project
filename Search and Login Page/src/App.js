@@ -4,16 +4,9 @@ import '@fortawesome/fontawesome-free/css/all.min.css';
 import './App.css';
 import {BrowserRouter} from "react-router-dom";
 import {BrowserRouter as Router, Switch, Route, Link} from "react-router-dom";
-import Login from "./components/login/login";
-import SignUp from "./components/login/register";
-import Profile from "./components/login/profile";
-import PostTable from "./components/table/pet-list";
-import PostGrid from "./components/grid/pet-grid";
-import ResetPassword from "./components/login/ResetPassword"
 import React from 'react';
 import UserManagement from "./components/user-management"
 import PetListMainPage from "./components/table/pet-list-main-page";
-import PetCard from "./components/grid/pet-card";
 import PetCardMainPage from "./components/grid/pet-card-main-page"
 
 
@@ -23,6 +16,7 @@ import SearchScreen from "./components/search/search-screen";
 import DetailsScreen from "./components/search/details-screen";
 import HomeScreen from "./components/search/home-screen";
 import DogCatSearch from "./components/search/dogcat-search"
+import Privacy from "./components/privacy"
 import ProfilePage from "./components/search/profile-page"
 
 // import api from "./api/oauth-token"
@@ -33,37 +27,8 @@ const petFinderSecret = "InqFifeZbO9QOwtLXTDQROwrzovrIbF2YfKVVl0o"
 
 
 function App() {
-    const [accessToken, setAccessToken] = useState(null);
-
-    useEffect(() => {
-        const fetchAccessToken = async () => {
-            const params = new URLSearchParams();
-            params.append("grant_type", "client_credentials");
-            params.append("client_id", petFinderKey);
-            params.append("client_secret", petFinderSecret);
-            const petfinderRes = await fetch(
-                "https://api.petfinder.com/v2/oauth2/token",
-                {
-                    method: "POST",
-                    body: params,
-                }
-            )
-
-            const json = await petfinderRes.json()
-            console.log(json.access_token)
-            setAccessToken(json.access_token)
-            // console.log(1)
-            // const res = await fetch(api);
-            // const json = await res.json();
-            // console.log(2)
-            // setAccessToken(json.access_token);
-        };
-
-        fetchAccessToken();
-    }, [])
 
     return (
-        <AuthContext.Provider value={accessToken}>
 
             <BrowserRouter>
 
@@ -72,15 +37,21 @@ function App() {
             <nav className="navbar navbar-expand-lg navbar-light fixed-top">
             {/*<div className="container-fluid">*/}
               <i className="fas fa-dog"></i>
+                <Link to={`/`}>
               <h2 className="navbar-brand">Welcome to Petfinder</h2>
+                </Link>
               <div className="collapse navbar-collapse" id="navbarTogglerDemo02">
                 <ul className="navbar-nav ml-auto">
+
                   <li className="nav-item">
                     <Link className="nav-link" to={"/login"}>Login</Link>
                   </li>
                   <li className="nav-item">
                     <Link className="nav-link" to={"/register"}>Sign up</Link>
                   </li>
+                    <li className="nav-item">
+                        <Link className="nav-link" to={"/privacy"}>Privacy Policy</Link>
+                    </li>
 
                 </ul>
               </div>
@@ -114,9 +85,9 @@ function App() {
                     <Route path="/details/:type/:id" exact={true}>
                         <DetailsScreen/>
                     </Route>
-                    {/*<Route path="/profile/:userId" exact={true}>*/}
-                    {/*    <ProfilePage/>*/}
-                    {/*</Route>*/}
+                    <Route path="/privacy" exact={true}>
+                        <Privacy/>
+                    </Route>
             </div>
           </div>
 
@@ -126,7 +97,6 @@ function App() {
 
         </div>
         </BrowserRouter>
-        </AuthContext.Provider>
 
   );
 }
