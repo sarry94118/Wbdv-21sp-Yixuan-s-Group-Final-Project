@@ -1,10 +1,12 @@
 import React, {Component, useState} from "react";
 import {Link} from "react-router-dom";
+import NavBar from "../nav-bar";
 
 const ResetPassword =({resetUser, findUserForUsername,user}) => {
     const [changeUser, setChangeUser] = useState([]);
         return (
             <form>
+                <NavBar />
                 <h3>Reset Password</h3>
                 {JSON.stringify(changeUser)}
                 <div className="form-group">

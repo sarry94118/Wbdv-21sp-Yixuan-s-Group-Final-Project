@@ -106,6 +106,7 @@ const dtpm = (dispatch) =>({
                 pet
             }))
     },
+
     deletePet: (petId) => {
         petService.deletePet(petId)
             .then(status => dispatch({

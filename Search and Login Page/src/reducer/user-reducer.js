@@ -2,11 +2,18 @@ import React from 'react'
 
 const initialState = {
 
-    users:[]
+    users:[],
+    currentUser : {}
 }
 
 const userReducer = (state=initialState, action) => {
     switch (action.type) {
+        //added by Meng Wang
+        case "GET_CURRENT_USER":
+            return {
+                ...state,
+
+            }
         case "CREATE_USER":
             return {
                 ...state,

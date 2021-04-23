@@ -1,16 +1,20 @@
 import React, { useState, useEffect } from "react";
 import {Link, useHistory, useParams} from 'react-router-dom'
-import newUser from "./login"
+// import newUser from "./login"
 import userService from "../../services/./search-services/user-service";
-import Popup from '../popup/password';
-import Login from "./login";
+import sessionUserService from "../../services/user-service"
+import NavBar from "../nav-bar";
+// import Popup from '../popup/password';
+// import Login from "./login";
 
-const Profile =({updateUser, findUserForUsername,user=null, show = false})=> {
+//modified by Meng Wang
+// const Profile =({updateUser, findUserForUsername,user=null, show = false})=> {
+const Profile =({updateUser, findUserForUsername, show = false})=> {
     const {userId} = useParams()
     const [edited, setEdited] = useState(false);
-    const [changeUser, setChangeUser] = useState(user);
+    const [changeUser, setChangeUser] = useState({});
     const [contact, setContact] = useState({})
-    const  history = useHistory();
+    const history = useHistory();
     const [shows, setShows] = useState(show)
     const [isOpen, setIsOpen] = useState(false);
     const [submitted, setSubmitted] = useState(false);
@@ -25,18 +29,21 @@ const Profile =({updateUser, findUserForUsername,user=null, show = false})=> {
     }
 
     useEffect(() => {
-        // if (changeUser !== {}) {
-        //     console.log(shows)
-        //     setShows(true)
-        //     console.log("true1")
-        //     console.log(changeUser)
-        // }else {
-        console.log(changeUser)
+        sessionUserService.profile().then(user => {
+            console.log("profile: useEffect user=" + JSON.stringify(user))
+            console.log("profile change changeUser = " + JSON.stringify(changeUser))
+            if(user !== null || user.username !== null){
+                setChangeUser(user)
+                console.log("changeUser.username = " + changeUser.username)
+            }else{
+                alert("Please login first")
+            }
+        })
         if(!changeUser.username){
             console.log(shows)
             findUserByUserId(userId)
         }
-    }, [user])
+    }, [])
 
     const findUserByUserId = (userId) => {
         userService.findUserByUserId(userId)
@@ -68,6 +75,9 @@ const Profile =({updateUser, findUserForUsername,user=null, show = false})=> {
     //     // }
     // }, [userId])
         return (
+            <>
+            <NavBar />
+
             <div>
                 <button onClick={() => {history.goBack()}}>Back</button>
                 {
@@ -233,8 +243,13 @@ const Profile =({updateUser, findUserForUsername,user=null, show = false})=> {
 
 
             </div>
+            </>
         )
     }
-
+// const stmp = (state) => {}
+//
+// const dtmp = (dispatch) => {
+//
+// }
 
 export default Profile

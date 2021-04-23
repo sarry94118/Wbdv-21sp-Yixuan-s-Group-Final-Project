@@ -1,17 +1,66 @@
-import React, {Component, useState, useEffect} from "react";
-import {Link} from "react-router-dom";
-import Popup from '../popup/password';
-import { useHistory } from 'react-router'
+import React, {useState, useEffect} from "react";
+// import {Link} from "react-router-dom";
+// import Popup from '../popup/password';
+import { useHistory } from 'react-router-dom'
+
+import userService from "../../services/user-service"
+import NavBar from "../nav-bar";
 
 
-const SignUp =({addUser, user, isValidEmailAddress}) => {
+const Register =({addUser, user}) => {
     const [edited, setEdited] = useState(false);
-    const [changeUser, setChangeUser] = useState([]);
-    const [submitted, setSubmitted] = useState(false);
+
+    // added by Meng Wang
+    const [changeUser, setChangeUser] = useState({
+        username: "",
+        password: "",
+        userType: "user",
+        firstName: "",
+        lastName: "",
+        email: ""
+    });
+    const [userNameError, setUserNameError] = useState(false);
+    const [userTypeError, setUserTypeError] = useState(false);
+    const [emailError, setEmailError] = useState(false);
+    const [passwordError, setPasswordError] = useState(false);
+    // deleted by Meng Wang
+    // const [submitted, setSubmitted] = useState(false);
+
     const history = useHistory()
 
+    // added by Meng Wang
+    const register = () => {
+        if(changeUser.username === null || changeUser.username === ""){
+            setUserNameError(true)
+        }
+        if(changeUser.userType === null || changeUser.userType === ""){
+            setUserTypeError(true)
+        }
+        if(isValidEmailAddress()){
+            setEmailError(true)
+        }
+        if(changeUser.password === null || changeUser.password === ""){
+            setPasswordError(true)
+        }
+        if(!userNameError && !userTypeError && !emailError && !passwordError){
+            userService.register(changeUser)
+                .then((user) => {
+                    console.log("register user: " + JSON.stringify(user))
+                    if(user.username === null) {
+                        alert("The username already been taken, please login directly or change to another username.")
+                        // history.push("/login")
+                    } else {
+                        if(user.userType === "admin"){
+                            history.push("/admin")
+                        }else{
+                            history.push("/profile")
+                        }
+                    }
+                })
+        }
+    }
 
-    function isValidEmailAddress(val) {
+    const isValidEmailAddress= (val) => {
         let regEmail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         if (!regEmail.test(val)) {
             return false;
@@ -19,50 +68,66 @@ const SignUp =({addUser, user, isValidEmailAddress}) => {
         }
         return true;
     }
-    useEffect(() => {
 
+    useEffect(() => {
+        console.log("load register")
 
     }, [])
 
         return (
             <form>
+                <NavBar />
                 <h3>Sign up</h3>
                 {JSON.stringify(changeUser)}
-                <div className="form-group">
-                    <label>User type</label>
-                    <select className="form-group" onChange={(e) =>
+                <div className="container-fluid">
+                <div className="form-group row">
+                    <label className="col-2">
+                        <label className="text-danger">*</label>
+                        User name
+                    </label>
+                    <input type="text" className="form-control col-10"
+                           onBlur={(e) =>{
+                               if(e.target.value) {
+                                   setChangeUser({
+                                       ...changeUser,
+                                       username:e.target.value
+                                   })
+                                   setUserNameError(false)
+                               }
+                               else{
+                                   setUserNameError(true)
+                               }
+                               }
+                           }
+                           onChange={()=>setUserNameError(false)}
+                           placeholder="User name" />
+                </div>
+                {
+                    userNameError &&
+                    <div className="alert alert-primary">User name is required!!</div>
+                }
+                <div className="form-group row">
+                    <label className="col-2">
+                        <label className="text-danger">*</label>
+                        User type
+                    </label>
+                    <select className="form-control col-10" onChange={(e) =>
                         setChangeUser({
                             ...changeUser,
                             userType:e.target.value
                         })} value={changeUser.userType}>
-                        <option value={""}>Please select User Type</option>
-                        <option value={"admin"}>Admin</option>
+                        {/*<option value={""}>Please select User Type</option>*/}
                         <option value={"user"}>User</option>
+                        <option value={"admin"}>Admin</option>
                     </select>
                 </div>
                 {
-                    submitted && !changeUser.userType &&
+                    userTypeError && !changeUser.userType &&
                     <div className="alert alert-primary">user type is required!!</div>
-
                 }
-                <div className="form-group">
-                    <label>User name</label>
-                    <input type="text" className="form-control"
-                           onChange={(e) =>
-                               setChangeUser({
-                                   ...changeUser,
-                                   username:e.target.value
-                               })}
-                           placeholder="User name" />
-                </div>
-                {
-                    submitted && !changeUser.username &&
-                    <div className="alert alert-primary">user name is required!!</div>
-
-                }
-                <div className="form-group">
-                    <label>First name</label>
-                    <input type="text" className="form-control"
+                <div className="form-group row">
+                    <label className="col-2">First name</label>
+                    <input type="text" className="form-control col-10"
                            onChange={(e) =>
                                setChangeUser({
                                    ...changeUser,
@@ -71,9 +136,9 @@ const SignUp =({addUser, user, isValidEmailAddress}) => {
                            placeholder="First name" />
                 </div>
 
-                <div className="form-group">
-                    <label>Last name</label>
-                    <input type="text" className="form-control"
+                <div className="form-group row">
+                    <label className="col-2">Last name</label>
+                    <input type="text" className="form-control col-10"
                            onChange={(e) =>
                                setChangeUser({
                                    ...changeUser,
@@ -82,92 +147,99 @@ const SignUp =({addUser, user, isValidEmailAddress}) => {
                            placeholder="Last name" />
                 </div>
 
-                <div className="form-group">
-                    <label>Email address</label>
-                    <input type="email" className="form-control"
-                           onChange={(e) =>
-                               setChangeUser({
-                                   ...changeUser,
-                                   email:e.target.value
-                               })}
+                <div className="form-group row">
+                    <label className="col-2">Email address</label>
+                    <input type="email" className="form-control col-10"
+                           onChange={(e) =>{
+                               if(!isValidEmailAddress(changeUser.email)){
+                                   setEmailError(true)
+                               }else{
+                                   setChangeUser({
+                                       ...changeUser,
+                                       email:e.target.value
+                                   })
+                                   setEmailError(false)
+                               }
+                               }
+                           }
                            placeholder="Enter email" />
                 </div>
                 {
-                    submitted && !isValidEmailAddress(changeUser.email) &&
+                    emailError &&
                     <div className="alert alert-primary">email address is invalid!!</div>
-
                 }
 
-                <div className="form-group">
-                    <label>Password</label>
-                    <input type="password" className="form-control"
-                           onChange={(e) =>
-                               setChangeUser({
-                                   ...changeUser,
-                                   password:e.target.value
-                               })}
+                <div className="form-group row">
+                    <label className="col-2">
+                        <label className="text-danger">*</label>
+                        Password
+                    </label>
+                    <input type="password" className="form-control col-10"
+                           onBlur={(e) =>{
+                               if(e.target.value) {
+                                   setChangeUser({
+                                       ...changeUser,
+                                       password:e.target.value
+                                   })
+                                   setPasswordError(false)
+                               }
+                               else{
+                                   setPasswordError(true)
+                               }
+                           }
+                           }
+                           onChange={()=>setPasswordError(false)}
                            placeholder="Enter password" />
                 </div>
                 {
-                    submitted && !changeUser.password &&
+                    passwordError &&
                     <div className="alert alert-primary">password is required!!</div>
 
                 }
 
-                {/*{*/}
-                {/*    !isOpen && submitted && !changeUser.password &&*/}
-                {/*    <Popup*/}
-                {/*        content={*/}
-                {/*            <>*/}
-                {/*                <b>Password is required</b>*/}
-                {/*            </>*/}
-                {/*        }*/}
+                <i className="btn btn-primary btn-block"
+                        // onClick={togglePopup}
+                        onClick={() => {
+                            // setSubmitted(true)
+                            console.log("onclick sign up")
+                            register()
+                        }}>Sign Up
+                </i>
 
-                {/*        handleClose={togglePopup}/>*/}
+
+                {/*{*/}
+                {/*    (!changeUser.password || !changeUser.username || !changeUser.userType || !isValidEmailAddress(changeUser.email)) &&*/}
+                {/*    <Link to="/register">*/}
+                {/*        <button className="btn btn-primary btn-block"*/}
+                {/*                // onClick={togglePopup}*/}
+                {/*                onClick={() => {*/}
+                {/*                    setSubmitted(true)*/}
+                {/*                }}>Sign Up*/}
+                {/*        </button>*/}
+                {/*    </Link>*/}
                 {/*}*/}
 
                 {/*{*/}
-                {/*    !isOpen && submitted && !changeUser.username &&*/}
-                {/*    <Popup*/}
-                {/*        content={*/}
-                {/*            <>*/}
-                {/*                <b>User name is required</b>*/}
-                {/*            </>*/}
-                {/*        }*/}
-                {/*        handleClose={togglePopup}/>*/}
+                {/*    changeUser.username && changeUser.password && changeUser.userType && isValidEmailAddress(changeUser.email) &&*/}
+                {/*    <Link to="/login">*/}
+                {/*    <button className="btn btn-primary btn-block"*/}
+                {/*            onClick={() => {*/}
+                {/*                addUser(changeUser)*/}
+                {/*            }}>Sign Up*/}
+                {/*    </button>*/}
+                {/*</Link>*/}
                 {/*}*/}
-                {
-                    (!changeUser.password || !changeUser.username || !changeUser.userType || !isValidEmailAddress(changeUser.email)) &&
-                    <Link to="/register">
-                        <button className="btn btn-primary btn-block"
-                                // onClick={togglePopup}
-                                onClick={() => {
-                                    setSubmitted(true)
-                                }}>Sign Up
-                        </button>
-                    </Link>
-                }
+                {/*<p className="forgot-password text-right">*/}
 
-                {
-                    changeUser.username && changeUser.password && changeUser.userType && isValidEmailAddress(changeUser.email) &&
-                    <Link to="/login">
-                    <button className="btn btn-primary btn-block"
-                            onClick={() => {
-                                addUser(changeUser)
-                            }}>Sign Up
-                    </button>
-                </Link>
-                }
-                <p className="forgot-password text-right">
+                {/*    <Link to="/login" passHref>*/}
+                {/*        <a href="sign-in">The username has been registered, please login.</a>*/}
+                {/*    </Link>*/}
 
-                    <Link to="/login" passHref>
-                        <a href="sign-in">Already registered</a>
-                    </Link>
-
-                    {/*<Link to={"/sign-in"}>Login</Link>*/}
-                </p>
+                {/*    /!*<Link to={"/sign-in"}>Login</Link>*!/*/}
+                {/*</p>*/}
+                </div>
             </form>
         );
     }
 
-export default SignUp
+export default Register

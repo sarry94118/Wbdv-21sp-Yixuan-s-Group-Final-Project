@@ -5,6 +5,7 @@ import Register from "./login/register"
 import {BrowserRouter as Router, Link, Route, Switch} from "react-router-dom";
 import userService from "../services/user-service";
 import ResetPassword from "./login/ResetPassword";
+import Admin from "./admin/admin";
 
 
 
@@ -19,6 +20,10 @@ const UserManagement =() => {
      useEffect(() => {
         findAllUsers()
         console.log(users)
+         // userService.profile().then(user => {
+         //     console.log("usermanagement user=" + user.username)
+         //     setUser(user)
+         // })
     }, [])
 
 
@@ -37,18 +42,20 @@ const UserManagement =() => {
     }
 
 
-    const addUser=(user) => {
-
-        userService.createUser(user.username,user)
-            .then(user => {setUsers({
-                    users: [
-                        ...users,
-                        user
-                    ]
-                })
-            // console.log("creatuser")
-            console.log(users)})
-    }
+    // deleted by Meng Wang
+    // const addUser=(user) => {
+    //
+    //     userService.createUser(user.username,user)
+    //         .then(user => {setUsers({
+    //                 users: [
+    //                     ...users,
+    //                     user
+    //                 ]
+    //             })
+    //         // console.log("creatuser")
+    //         console.log(users)})
+    // }
+    // ===============end====================
 
 
 
@@ -82,7 +89,6 @@ const UserManagement =() => {
 
                 <Route path="/login" exact={true}>
                     <Login
-
                         findUserForUsername = {findUserForUsername}
                         updateUser = {updateUser}
                         users={users}
@@ -90,15 +96,16 @@ const UserManagement =() => {
                         />
                 </Route>
                 <Route path="/register" exact={true}>
-                    <Register
-                        addUser = {addUser}
-                        users={user} />
+                    {/*<Register*/}
+                    {/*    addUser = {addUser}*/}
+                    {/*    users={user} />*/}
+                    <Register />
                 </Route>
-                <Route path="/profile/:userId" exact={true}>
+                <Route path={["/profile","/profile/:userId"]} exact={true}>
                     <Profile
                         findUserForUsername = {findUserForUsername}
                         updateUser={updateUser}
-                        user={user}
+                        // user={user}
                         show = {true}
                       />
 
@@ -109,6 +116,13 @@ const UserManagement =() => {
                         resetUser={resetUser}
                         user={user} />
 
+                </Route>
+                 {/*added by Meng Wang*/}
+                 {/*这里的label是为了区分显示user list和pet list*/}
+                <Route
+                    path={["/admin", "/admin/:label"]}
+                    exact={true}
+                    component={Admin}>
                 </Route>
 
 

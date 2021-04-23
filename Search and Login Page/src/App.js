@@ -1,32 +1,53 @@
-import logo from './logo.svg';
+// import logo from './logo.svg';
+import React, {createContext, useEffect, useState} from 'react';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import './App.css';
-import {BrowserRouter} from "react-router-dom";
-import {BrowserRouter as Router, Switch, Route, Link} from "react-router-dom";
-import React from 'react';
+import {BrowserRouter, Route, Link, useHistory} from "react-router-dom";
 import UserManagement from "./components/user-management"
 import PetListMainPage from "./components/table/pet-list-main-page";
 import PetCardMainPage from "./components/grid/pet-card-main-page"
 
 
-import {useEffect, createContext, useState} from "react";
-import './App.css';
 import SearchScreen from "./components/search/search-screen";
 import DetailsScreen from "./components/search/details-screen";
 import HomeScreen from "./components/search/home-screen";
 import DogCatSearch from "./components/search/dogcat-search"
 import Privacy from "./components/privacy"
-import ProfilePage from "./components/search/profile-page"
 
 // import api from "./api/oauth-token"
+import userService from "./services/user-service"
 
 export const AuthContext = createContext();
 const petFinderKey = "IERoPwTvvsgAtqgT71P7EhCx8nLMCsx4xvvP0zywOA6eSzWWal"
 const petFinderSecret = "InqFifeZbO9QOwtLXTDQROwrzovrIbF2YfKVVl0o"
 
-
-function App() {
+//modified by Meng Wang
+// function App() {
+const App = () => {
+//=====end=====
+//     const history = useHistory()
+//
+//     const [loginOrNot, setLoginOrNot] = useState(false)
+//
+//     const logout = ()=>{
+//         userService.logout().then(()=>{
+//             history.push("/login")
+//             setLoginOrNot(false)
+//         })
+//     }
+//
+//     useEffect(()=>{
+//         userService.profile().then(user=>{
+//             if(user === null || user.username === null){
+//                 console.log("app: no one log in.")
+//                 setLoginOrNot(false)
+//             }else{
+//                 console.log("app: " + user.username + " has logged in.")
+//                 setLoginOrNot(true)
+//             }
+//         })
+//     },[])
 
     return (
 
@@ -40,21 +61,33 @@ function App() {
                 <Link to={`/`}>
               <h2 className="navbar-brand">Welcome to Petfinder</h2>
                 </Link>
-              <div className="collapse navbar-collapse" id="navbarTogglerDemo02">
-                <ul className="navbar-nav ml-auto">
+                {/*=========deleted by Meng Wang================*/}
+              {/*<div className="collapse navbar-collapse" id="navbarTogglerDemo02">*/}
+              {/*  <ul className="navbar-nav ml-auto">*/}
+              {/*      {*/}
+              {/*          !loginOrNot &&*/}
+              {/*        <li className="nav-item">*/}
+              {/*          <Link className="nav-link" to={"/login"}>Login</Link>*/}
+              {/*        </li>*/}
+              {/*      }*/}
+              {/*      {*/}
+              {/*          loginOrNot &&*/}
+              {/*      <li className="nav-item">*/}
+              {/*          <Link className="nav-link" onClick={logout}>*/}
+              {/*              Logout*/}
+              {/*          </Link>*/}
+              {/*    </li>*/}
+              {/*      }*/}
+              {/*    <li className="nav-item">*/}
+              {/*      <Link className="nav-link" to={"/register"}>Sign up</Link>*/}
+              {/*    </li>*/}
+              {/*      <li className="nav-item">*/}
+              {/*          <Link className="nav-link" to={"/privacy"}>Privacy Policy</Link>*/}
+              {/*      </li>*/}
 
-                  <li className="nav-item">
-                    <Link className="nav-link" to={"/login"}>Login</Link>
-                  </li>
-                  <li className="nav-item">
-                    <Link className="nav-link" to={"/register"}>Sign up</Link>
-                  </li>
-                    <li className="nav-item">
-                        <Link className="nav-link" to={"/privacy"}>Privacy Policy</Link>
-                    </li>
-
-                </ul>
-              </div>
+              {/*  </ul>*/}
+              {/*</div>*/}
+                {/*=========end================*/}
             {/*</div>*/}
           </nav>
 
