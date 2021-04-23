@@ -4,6 +4,7 @@ import newUser from "./login"
 import userService from "../../services/./search-services/user-service";
 import Popup from '../popup/password';
 import Login from "./login";
+import validator from 'validator'
 
 const Profile =({updateUser, findUserForUsername,user=null, show = false})=> {
     const {userId} = useParams()
@@ -15,13 +16,22 @@ const Profile =({updateUser, findUserForUsername,user=null, show = false})=> {
     const [isOpen, setIsOpen] = useState(false);
     const [submitted, setSubmitted] = useState(false);
 
-    function isValidEmailAddress(val) {
-        let regEmail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-        if (!regEmail.test(val)) {
-            return false;
+    // function isValidEmailAddress(val) {
+    //     let regEmail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    //     if (!regEmail.test(val)) {
+    //         return false;
+    //
+    //     }
+    //     return true;
+    // }
+    //
+    const validateEmail = (e) => {
 
+        if (validator.isEmail(e)) {
+            return true
+        } else {
+            return false
         }
-        return true;
     }
 
     useEffect(() => {
@@ -150,7 +160,7 @@ const Profile =({updateUser, findUserForUsername,user=null, show = false})=> {
                                       placeholder="Enter email">{changeUser.email}</textarea>
                         </div>
                         {
-                            submitted && !isValidEmailAddress(changeUser.email) &&
+                            submitted && !validateEmail(changeUser.email) &&
                             <div className="alert alert-primary">email address is invalid!!</div>
 
                         }
@@ -176,7 +186,7 @@ const Profile =({updateUser, findUserForUsername,user=null, show = false})=> {
 
 
                         {
-                            (!changeUser.password || !isValidEmailAddress(changeUser.email))&&
+                            (!changeUser.password || !validateEmail(changeUser.email))&&
                             <Link to={`/profile/${changeUser.userId}`}>
                                 <button
                                     onClick={() => {
@@ -191,7 +201,7 @@ const Profile =({updateUser, findUserForUsername,user=null, show = false})=> {
                         <br/>
 
                         {
-                            (!changeUser.password || !isValidEmailAddress(changeUser.email)) &&
+                            (!changeUser.password || !validateEmail(changeUser.email)) &&
                             <Link to={`/profile/${changeUser.userId}`}>
                                 <button
                                         onClick={() => {
@@ -206,7 +216,7 @@ const Profile =({updateUser, findUserForUsername,user=null, show = false})=> {
 
 
                         {
-                            changeUser.username && changeUser.password && isValidEmailAddress(changeUser.email) &&
+                            changeUser.username && changeUser.password && validateEmail(changeUser.email) &&
                             <Link to="/login">
                             <button className="btn btn-primary btn-block"
                                     onClick={() => {
@@ -221,7 +231,7 @@ const Profile =({updateUser, findUserForUsername,user=null, show = false})=> {
 
 
                         {
-                            changeUser.username && changeUser.password && isValidEmailAddress(changeUser.email) &&
+                            changeUser.username && changeUser.password && validateEmail(changeUser.email) &&
                             <Link to={`/petlist/${changeUser.userId}`}>
                             <button className="btn btn-primary btn-block">See your post</button>
                         </Link>
