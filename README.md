@@ -1,26 +1,27 @@
 # Front End Repo:
 
 project description and details docs: https://docs.google.com/document/d/1sHcPVtCp5pJzraJH8rcgD-DypXiAkMxOCSsTaCRN1_w/edit
-
 Search Page Heroku: https://petfindersearch.herokuapp.com/
 
-Introduction
+
+# Introduction
+
 Petfinder is a crowd-sourced website for the users to search for a missing pet or report a missing pet. We used the combination of ReactJS and ReduxJS framework on frontend; used Spring Boot framework on backend that supports RESTful web service; and used MySQL as our database.
 
 
-Project Organization
+# Project Organization
+
 Project Members:
 Meng Wang/wang.meng1@northeastern.edu
 Yixuan Liao/liao.yi@northeastern.edu
 Rui Chao/chao.r@northeastern.edu
 
 
-Requirements
+# Requirements
 
 Business Requirements 
 
 This web application is intending to solve objective problems facing pet owners and stray animals.
-
 For the pet owner’s side: Efficiency for looking for missing pets, efficiency in adopting an animal, and reporting a missing pet.
 For the stray animals: Find a lovely home and get connected to the owner.
 
@@ -41,6 +42,7 @@ Search-Page(Function implemented for search usage)
 SearchResult-Page(Function implemented for search usage)
 PostTable-Page(Function implemented for user edit/update/delete/create)
 
-Implementation Requirements
+
+# Implementation Requirements
 Implementation: ReactJS,ReduxJS, SpringBoot, JavaScript, Java,HTML/CSS,MySQL
 
