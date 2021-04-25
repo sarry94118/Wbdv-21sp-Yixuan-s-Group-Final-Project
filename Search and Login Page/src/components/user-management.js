@@ -118,12 +118,7 @@ const UserManagement =() => {
 
                 </Route>
                  {/*added by Meng Wang*/}
-                 {/*这里的label是为了区分显示user list和pet list*/}
-                <Route
-                    path={["/admin", "/admin/:label"]}
-                    exact={true}
-                    component={Admin}>
-                </Route>
+
 
 
 

@@ -17,6 +17,10 @@ import Privacy from "./components/privacy"
 
 // import api from "./api/oauth-token"
 import userService from "./services/user-service"
+import Admin from "./components/admin/admin";
+import PetTab from "./components/admin/pet/pet_tab";
+import PetReport from "./components/admin/pet/pet-report";
+import UserDetail from "./components/admin/user/user_detail";
 
 export const AuthContext = createContext();
 const petFinderKey = "IERoPwTvvsgAtqgT71P7EhCx8nLMCsx4xvvP0zywOA6eSzWWal"
@@ -26,28 +30,6 @@ const petFinderSecret = "InqFifeZbO9QOwtLXTDQROwrzovrIbF2YfKVVl0o"
 // function App() {
 const App = () => {
 //=====end=====
-//     const history = useHistory()
-//
-//     const [loginOrNot, setLoginOrNot] = useState(false)
-//
-//     const logout = ()=>{
-//         userService.logout().then(()=>{
-//             history.push("/login")
-//             setLoginOrNot(false)
-//         })
-//     }
-//
-//     useEffect(()=>{
-//         userService.profile().then(user=>{
-//             if(user === null || user.username === null){
-//                 console.log("app: no one log in.")
-//                 setLoginOrNot(false)
-//             }else{
-//                 console.log("app: " + user.username + " has logged in.")
-//                 setLoginOrNot(true)
-//             }
-//         })
-//     },[])
 
     return (
 
@@ -55,12 +37,12 @@ const App = () => {
 
             <div className="App">
             <div className="container-fluid">
-            <nav className="navbar navbar-expand-lg navbar-light fixed-top">
-            {/*<div className="container-fluid">*/}
-              <i className="fas fa-dog"></i>
-                <Link to={`/`}>
-              <h2 className="navbar-brand">Welcome to Petfinder</h2>
-                </Link>
+            {/*<nav className="navbar navbar-expand-lg navbar-light fixed-top">*/}
+            {/*/!*<div className="container-fluid">*!/*/}
+            {/*  <i className="fas fa-dog"></i>*/}
+            {/*    <Link to={`/`}>*/}
+            {/*  <h2 className="navbar-brand">Welcome to Petfinder</h2>*/}
+            {/*    </Link>*/}
                 {/*=========deleted by Meng Wang================*/}
               {/*<div className="collapse navbar-collapse" id="navbarTogglerDemo02">*/}
               {/*  <ul className="navbar-nav ml-auto">*/}
@@ -89,7 +71,7 @@ const App = () => {
               {/*</div>*/}
                 {/*=========end================*/}
             {/*</div>*/}
-          </nav>
+          {/*</nav>*/}
 
           <div className="auth-wrapper">
             <div className="auth-inner">
@@ -121,6 +103,29 @@ const App = () => {
                     <Route path="/privacy" exact={true}>
                         <Privacy/>
                     </Route>
+                {/*========added by Meng Wang=======*/}
+                {/*这里的label是为了区分显示user list和pet list*/}
+                <Route
+                    path={["/admin", "/admin/:label"]}
+                    exact={true}
+                    component={Admin}>
+                </Route>
+                <Route
+                    path={["/users/:userId/pets", "/users/:userId/pets/:petId"]}
+                    exact={true}
+                    component={PetTab}>
+                </Route>
+                <Route
+                    path={ "/users/:userId/report/pet"}
+                    exact={true}
+                    component={PetReport}>
+                </Route>
+                <Route
+                    path={["/users/:userId"]}
+                    exact={true}
+                    component={UserDetail}>
+                </Route>
+                {/*========end=======*/}
             </div>
           </div>
 

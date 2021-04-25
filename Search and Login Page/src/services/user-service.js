@@ -71,6 +71,23 @@ const register = (credentials) => {
         })
 }
 
+
+const createUserWithoutLogin = (credentials)=>{
+    console.log("user service create")
+    console.log(JSON.stringify(credentials))
+    return fetch(`${API_URL}/create`, {
+        method: "POST",
+        credentials: "include",
+        body: JSON.stringify(credentials),
+        headers: {
+            'content-type': 'application/json'
+        }
+    })
+        .then(response => {
+            return response.json()
+        })
+}
+
 //added by Meng Wang
 const profile = () => {
     return fetch(`${API_URL}/profile`, {
@@ -109,5 +126,6 @@ export default {
     register,
     login,
     logout,
-    profile
+    profile,
+    createUserWithoutLogin
 };

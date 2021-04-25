@@ -6,6 +6,7 @@ const NavBar = ()=>{
     const history = useHistory()
 
     const [loginOrNot, setLoginOrNot] = useState(false)
+    const [userName, setUserName] = useState("")
 
     const logout = ()=>{
         userService.logout().then(()=>{
@@ -17,11 +18,12 @@ const NavBar = ()=>{
     useEffect(()=>{
         userService.profile().then(user=>{
             if(user === null || user.username === null){
-                console.log("app: no one log in.")
+                console.log("Navbar: no one log in.")
                 setLoginOrNot(false)
             }else{
-                console.log("app: " + user.username + " has logged in.")
+                console.log("Navbar: " + user.username + " has logged in.")
                 setLoginOrNot(true)
+                setUserName(user.username)
             }
         })
     },[])
@@ -45,11 +47,16 @@ const NavBar = ()=>{
                   }
                   {
                       loginOrNot &&
-                  <li className="nav-item">
-                      <Link className="nav-link" onClick={logout}>
-                          Logout
-                      </Link>
-                </li>
+                          <>
+                      <li className="nav-item">
+                          Hello, {userName}
+                      </li>
+                      <li className="nav-item">
+                          <Link className="nav-link" onClick={logout}>
+                              Logout
+                          </Link>
+                      </li>
+                          </>
                   }
                   <li className="nav-item">
                       <Link className="nav-link" to={"/privacy"}>Privacy Policy</Link>

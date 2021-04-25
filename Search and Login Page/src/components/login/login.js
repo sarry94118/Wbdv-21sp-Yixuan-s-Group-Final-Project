@@ -30,7 +30,7 @@ const Login = ({findUserForUsername, users, updateUser, user}) => {
                         alert("Please check your username or password.")
                     } else {
                         if (user.userType === "admin") {
-                            history.push("/admin")
+                            history.push("/admin/users")
                         } else {
                             history.push("/profile")
                         }

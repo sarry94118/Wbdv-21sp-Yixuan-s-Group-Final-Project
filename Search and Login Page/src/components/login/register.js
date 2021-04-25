@@ -8,7 +8,7 @@ import NavBar from "../nav-bar";
 
 
 const Register =({addUser, user}) => {
-    const [edited, setEdited] = useState(false);
+    // const [edited, setEdited] = useState(false);
 
     // added by Meng Wang
     const [changeUser, setChangeUser] = useState({
@@ -23,13 +23,30 @@ const Register =({addUser, user}) => {
     const [userTypeError, setUserTypeError] = useState(false);
     const [emailError, setEmailError] = useState(false);
     const [passwordError, setPasswordError] = useState(false);
+    const [isAdmin, setIsAdmin] = useState(false)
     // deleted by Meng Wang
     // const [submitted, setSubmitted] = useState(false);
 
     const history = useHistory()
 
+    useEffect(() => {
+        console.log("load register")
+        userService.profile().then(user =>{
+            console.log(JSON.stringify(user))
+            if(user && user.userType === "admin"){
+                console.log("some admin logged in")
+                setIsAdmin(true)
+            }else{
+                console.log("normal user log in")
+                setIsAdmin(false)
+            }
+        })
+
+    }, [])
+
     // added by Meng Wang
     const register = () => {
+        console.log("register")
         if(changeUser.username === null || changeUser.username === ""){
             setUserNameError(true)
         }
@@ -43,20 +60,27 @@ const Register =({addUser, user}) => {
             setPasswordError(true)
         }
         if(!userNameError && !userTypeError && !emailError && !passwordError){
-            userService.register(changeUser)
-                .then((user) => {
-                    console.log("register user: " + JSON.stringify(user))
-                    if(user.username === null) {
-                        alert("The username already been taken, please login directly or change to another username.")
-                        // history.push("/login")
-                    } else {
-                        if(user.userType === "admin"){
-                            history.push("/admin")
-                        }else{
-                            history.push("/profile")
+            if(isAdmin){
+                console.log("admin create new user")
+                userService.createUserWithoutLogin(changeUser)
+                    .then((user) => {
+                        console.log("create new user")
+                        history.push("/admin/users")
+                    })
+            }else{
+                console.log("user register")
+                userService.register(changeUser)
+                    .then((user) => {
+                        console.log("register user: " + JSON.stringify(user))
+                        if(user.username === null) {
+                            alert("The username already been taken, please login directly or change to another username.")
+                            // history.push("/login")
+                        } else {
+                                history.push("/profile")
                         }
                     }
-                })
+                    )
+            }
         }
     }
 
@@ -69,15 +93,16 @@ const Register =({addUser, user}) => {
         return true;
     }
 
-    useEffect(() => {
-        console.log("load register")
-
-    }, [])
 
         return (
             <form>
                 <NavBar />
-                <h3>Sign up</h3>
+                {
+                    isAdmin && <h3>Create New User</h3>
+                }
+                {
+                    !isAdmin && <h3>Sign up</h3>
+                }
                 {JSON.stringify(changeUser)}
                 <div className="container-fluid">
                 <div className="form-group row">
