@@ -39,7 +39,7 @@ const UserDetail = ()=>{
             {/*    <td className="wm-table-content">{user.userType}</td>*/}
             {/*</tr>*/}
             <tr>
-                <td className="wm-table-label">Email</td>
+                <td className="wm-table-label">Emai</td>
                 <td className="wm-table-content">{user.email}</td>
             </tr>
             </tbody>

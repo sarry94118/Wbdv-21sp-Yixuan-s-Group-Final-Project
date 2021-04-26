@@ -64,8 +64,12 @@ const Register =({addUser, user}) => {
                 console.log("admin create new user")
                 userService.createUserWithoutLogin(changeUser)
                     .then((user) => {
-                        console.log("create new user")
-                        history.push("/admin/users")
+                        if(user.username === null){
+                            alert("The username has been taken.")
+                        }else {
+                            console.log("create new user")
+                            history.push("/admin/users")
+                        }
                     })
             }else{
                 console.log("user register")

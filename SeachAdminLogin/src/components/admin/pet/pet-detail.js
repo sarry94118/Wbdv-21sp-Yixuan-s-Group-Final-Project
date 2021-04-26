@@ -1,11 +1,12 @@
 import React from "react";
+import {Link} from "react-router-dom";
 
 const PetDetail = ({pet}) => {
 
     // const {userId, petId} =useParams()
 
     // const defaultImg = "https://upload.wikimedia.org/wikipedia/commons/a/ac/No_image_available.svg"
-    const defaultImg = process.env.PUBLIC_URL + "/petfinder.png"
+    const defaultImg = "https://images.saymedia-content.com/.image/t_share/MTc0MjU0ODc2MjYyNDc1NjQ0/drawing-a-cartoon-dog.jpg"
 
 
     return <>
@@ -16,7 +17,7 @@ const PetDetail = ({pet}) => {
                     <img
                         alt="pet photo"
                         src={`${pet.image === "" ? defaultImg : pet.image}`}
-                         width={`${pet.width==="null"? "200": pet.width}`}
+                         width={`${pet.width==="null"? "250": pet.width}`}
                          width={`${pet.height===""? "200": pet.height}`}
                          // height={pet.height}
                         className="col-6"/>
@@ -24,7 +25,10 @@ const PetDetail = ({pet}) => {
                         <li>Name: {pet.name}</li>
                         <li>Breed: {pet.breed}</li>
                         <li>Gender: {pet.gender}</li>
+                        <li>Age: {pet.age}</li>
                         <li>City: {pet.city}</li>
+                        <li>State: {pet.state}</li>
+                        <li>Zipcode: {pet.zipcode}</li>
                         <li>Status: {pet.status}</li>
                     </ul>
                 </div>
@@ -33,7 +37,9 @@ const PetDetail = ({pet}) => {
 
             <div className="row wm-botton-margin">
                 <div className="wm-auto-margin">
-                    <button type="submit" className="btn btn-primary wm-icon">Update</button>
+                   <Link to={`/users/report/edit/pet/${pet.petId}`}>
+                        <i className="btn btn-primary wm-icon">Edit</i>
+                    </Link>
                     {/*<button type="submit" className="btn btn-primary wm-icon">Delete</button>*/}
                 </div>
             </div>

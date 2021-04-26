@@ -7,6 +7,7 @@ import {BrowserRouter, Route, Link, useHistory} from "react-router-dom";
 import UserManagement from "./components/user-management"
 import PetListMainPage from "./components/table/pet-list-main-page";
 import PetCardMainPage from "./components/grid/pet-card-main-page"
+import { LastLocationProvider } from 'react-router-last-location';
 
 
 import SearchScreen from "./components/search/search-screen";
@@ -21,6 +22,8 @@ import Admin from "./components/admin/admin";
 import PetTab from "./components/admin/pet/pet_tab";
 import PetReport from "./components/admin/pet/pet-report";
 import UserDetail from "./components/admin/user/user_detail";
+import UserList from "./components/admin/user/user-list";
+import PetList from "./components/admin/pet/pet-list";
 
 export const AuthContext = createContext();
 const petFinderKey = "IERoPwTvvsgAtqgT71P7EhCx8nLMCsx4xvvP0zywOA6eSzWWal"
@@ -34,7 +37,7 @@ const App = () => {
     return (
 
             <BrowserRouter>
-
+            <LastLocationProvider>
             <div className="App">
             <div className="container-fluid">
             {/*<nav className="navbar navbar-expand-lg navbar-light fixed-top">*/}
@@ -76,8 +79,12 @@ const App = () => {
           <div className="auth-wrapper">
             <div className="auth-inner">
 
+                {/*<Route path="/usermanage" exact={true}>*/}
+                {/*    <UserManagement/>*/}
+
+                {/*</Route>*/}
               <Route path="/">
-                <UserManagement/>
+                  <UserManagement/>
               </Route>
               <Route path={["/petlist/:userId"]} exact={true}>
                 <PetListMainPage/>
@@ -110,13 +117,20 @@ const App = () => {
                     exact={true}
                     component={Admin}>
                 </Route>
+                {/*<Route path="/admin/users">*/}
+                {/*    <UserList />*/}
+                {/*</Route>*/}
+                {/*<Route path="/admin/pets">*/}
+                {/*    <PetList />*/}
+                {/*</Route>*/}
+
                 <Route
                     path={["/users/:userId/pets", "/users/:userId/pets/:petId"]}
                     exact={true}
                     component={PetTab}>
                 </Route>
                 <Route
-                    path={ "/users/:userId/report/pet"}
+                    path={ ["/users/report/:edit/pet", "/users/report/:edit/pet/:petId"]}
                     exact={true}
                     component={PetReport}>
                 </Route>
@@ -134,6 +148,7 @@ const App = () => {
         </div>
 
         </div>
+            </LastLocationProvider>
         </BrowserRouter>
 
   );

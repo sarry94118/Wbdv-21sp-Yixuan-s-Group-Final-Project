@@ -39,6 +39,10 @@ const PostTable =({
         return(
             <div>
                 {/*{JSON.stringify(pets)}*/}
+                <button onClick={() => {
+                    history.goBack()
+                }}>Back to your Profile
+                </button>
 
                 {/*<button onClick={() => refreshPage()}>refresh to see update</button>*/}
                 <i className="fas fa-plus-circle float-right fa-2x"

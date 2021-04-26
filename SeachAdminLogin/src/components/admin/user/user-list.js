@@ -2,28 +2,21 @@ import React, {useEffect, useState} from "react";
 import UserRow from "./user-row";
 import userService from "../../../services/admin-service/user-service";
 import {Link} from "react-router-dom";
+import {connect} from "react-redux";
 
-const UserList =()=>{
+const UserList =({
+                    users,
+                     findAllUsers,
+                     deleteUser
+})=>{
 
-    const [users, setUsers] = useState([]);
+    // const [users, setUsers] = useState([]);
 
     useEffect(()=>{
-        userService.findAllUsers().then(users=>setUsers(users))
+        findAllUsers()
+
     },[])
 
-    const deleteUser = (delUser)=>{
-        console.log("delete user = " + delUser.userId)
-        userService.deleteUser(delUser.userId)
-            .then(status=>{
-                //TODO
-                // this.setState((preState)=>{
-                //     return {
-                //         ...preState,
-                //         users: preState.users.filter(user =>user !== delUser)
-                //     }
-                // })
-            })
-    }
 
     return <div>
 
@@ -63,4 +56,26 @@ const UserList =()=>{
     </div>
 }
 
-export default UserList
+const stpm = (state) => {
+    return {
+        users: state.adminUserReducer.users
+    }
+}
+
+const dtpm = (dispatch) =>{
+
+    return {
+        findAllUsers : () =>
+            userService.findAllUsers()
+                .then(users=>dispatch({type: "FIND_ALL_USERS", users})),
+        deleteUser : (delUser)=> {
+            console.log("delete user = " + delUser.userId)
+            userService.deleteUser(delUser.userId).then(
+                dispatch({type: "DELETE_USER", userIdToDelete: delUser.userId}),
+            )
+
+        }
+    }
+}
+
+export default connect(stpm, dtpm)(UserList)

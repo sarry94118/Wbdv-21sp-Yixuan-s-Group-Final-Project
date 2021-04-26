@@ -71,6 +71,10 @@ const PetCard = (
     return (
         <div>
             {/*{JSON.stringify(updatePuppy)}*/}
+            <button onClick={() => {
+                history.goBack()
+            }}>Back
+            </button>
             {
             edited &&
 

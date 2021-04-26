@@ -3,7 +3,14 @@ import {resetFirstInputPolyfill} from "web-vitals/dist/modules/lib/polyfills/fir
 
 // const API_URL = "http://localhost:8090/api/pets";
 // const API_URL = "http://localhost:8080/api/pets";
-const API_URL = "https://petfinderserver2.herokuapp.com/api/pets";
+// <<<<<<< HEAD
+// const API_URL = "https://petfinderserver.herokuapp.com/api/pets";
+const PET_URL=process.env.REACT_APP_PET_URL
+
+const API_URL = PET_URL + "/pets"
+// =======
+// const API_URL = "https://petfinderserver2.herokuapp.com/api/pets";
+// >>>>>>> 540f506ba4b6e8f62a29b143bd175e2b361f2089
 
 export const findAllPets = () =>
     fetch(API_URL)
@@ -42,7 +49,7 @@ export const findPetForUser= (userId) =>
         .then(response =>response.json())
 
 export const findPetForId=(petId) =>
-    fetch(`https://petfinderserver2.herokuapp.com/api/pet/${petId}`)
+    fetch(`${PET_URL}/pet/${petId}`)
         .then(response => response.json())
 
 //
