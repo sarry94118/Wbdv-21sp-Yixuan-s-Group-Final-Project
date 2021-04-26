@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import {Link, useHistory, useParams} from 'react-router-dom'
+// <<<<<<< HEAD
 // import newUser from "./login"
 import userService from "../../services/admin-service/user-service";
 import sessionUserService from "../../services/user-service"
@@ -10,6 +11,14 @@ import NavBar from "../nav-bar";
 //modified by Meng Wang
 // const Profile =({updateUser, findUserForUsername,user=null, show = false})=> {
 const Profile =({findUserForUsername, show = false})=> {
+// =======
+// import newUser from "./login"
+// import userService from "../../services/./search-services/user-service";
+import Popup from '../popup/password';
+// import Login from "./login";
+import validator from 'validator'
+
+// >>>>>>> 67c9492df36a587fc111f6090b14b69ff53ec216
     const {userId} = useParams()
     const [edited, setEdited] = useState(false);
     const [changeUser, setChangeUser] = useState({});
@@ -24,13 +33,22 @@ const Profile =({findUserForUsername, show = false})=> {
     const [emailError, setEmailError] = useState(false);
     const [passwordError, setPasswordError] = useState(false);
 
-    function isValidEmailAddress(val) {
-        let regEmail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-        if (!regEmail.test(val)) {
-            return false;
+    // function isValidEmailAddress(val) {
+    //     let regEmail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    //     if (!regEmail.test(val)) {
+    //         return false;
+    //
+    //     }
+    //     return true;
+    // }
+    //
+    const validateEmail = (e) => {
 
+        if (validator.isEmail(e)) {
+            return true
+        } else {
+            return false
         }
-        return true;
     }
 
     useEffect(() => {
@@ -169,6 +187,14 @@ const Profile =({findUserForUsername, show = false})=> {
                             <label>Email address</label>
                             <label>{changeUser.email}</label>
                         </div>
+{/*<<<<<<< HEAD*/}
+{/*=======*/}
+                        {
+                            submitted && !validateEmail(changeUser.email) &&
+                            <div className="alert alert-primary">email address is invalid!!</div>
+
+                        }
+{/*>>>>>>> 67c9492df36a587fc111f6090b14b69ff53ec216*/}
 
                         <div className="form-group">
                             <label>Password</label>
@@ -212,8 +238,22 @@ const Profile =({findUserForUsername, show = false})=> {
                                 value={changeUser.username}/>
                         </div>
                         {
+// <<<<<<< HEAD
                             userNameError &&
-                            <div className="alert alert-primary">User name is required!!</div>
+                            <div className="alert alert-primary">User name is required!!</div>}
+// =======
+                            (!changeUser.password || !validateEmail(changeUser.email))&&
+                            <Link to={`/profile/${changeUser.userId}`}>
+                                <button
+                                    onClick={() => {
+                                        setSubmitted(true)
+                                    }}
+                                    className="btn btn-primary btn-block">
+
+                                    Update</button>
+                            </Link>
+
+// >>>>>>> 67c9492df36a587fc111f6090b14b69ff53ec216
                         }
                         <div className="form-group row">
                             <label className="col-2">
@@ -231,8 +271,22 @@ const Profile =({findUserForUsername, show = false})=> {
                             </select>
                         </div>
                         {
+// <<<<<<< HEAD
                             userTypeError && !changeUser.userType &&
-                            <div className="alert alert-primary">user type is required!!</div>
+                            <div className="alert alert-primary">user type is required!!</div>}
+{/*// ======={*/}
+                            (!changeUser.password || !validateEmail(changeUser.email)) &&
+                            <Link to={`/profile/${changeUser.userId}`}>
+                                <button
+                                        onClick={() => {
+                                            setSubmitted(true)
+                                        }}
+                                        className="btn btn-primary btn-block">
+
+                                    See your post</button>
+                            </Link>
+
+{/*>>>>>>> 67c9492df36a587fc111f6090b14b69ff53ec216*/}
                         }
                         <div className="form-group row">
                             <label className="col-2">First name</label>
@@ -277,8 +331,21 @@ const Profile =({findUserForUsername, show = false})=> {
                                    placeholder="Enter email" />
                         </div>
                         {
+// <<<<<<< HEAD
                             emailError &&
-                            <div className="alert alert-primary">email address is invalid!!</div>
+                            <div className="alert alert-primary">email address is invalid!!</div>}
+// =======
+                        {   changeUser.username && changeUser.password && validateEmail(changeUser.email) &&
+                            <Link to="/login">
+                            <button className="btn btn-primary btn-block"
+                                    onClick={() => {
+                                        findUserForUsername(changeUser)
+                                        updateUser(changeUser.userId, changeUser)
+                                        findUserForUsername(changeUser)
+                                    }}>Update
+                            </button>
+                            </Link>
+// >>>>>>> 67c9492df36a587fc111f6090b14b69ff53ec216
                         }
 
                         <div className="form-group row">
@@ -305,9 +372,17 @@ const Profile =({findUserForUsername, show = false})=> {
                                    placeholder="Enter password" />
                         </div>
                         {
+// <<<<<<< HEAD
                             passwordError &&
-                            <div className="alert alert-primary">password is required!!</div>
+                            <div className="alert alert-primary">password is required!!</div>}
 
+{/*// =======*/}
+                        {
+                            changeUser.username && changeUser.password && validateEmail(changeUser.email) &&
+                            <Link to={`/petlist/${changeUser.userId}`}>
+                            <button className="btn btn-primary btn-block">See your post</button>
+                        </Link>
+// >>>>>>> 67c9492df36a587fc111f6090b14b69ff53ec216
                         }
 
                         <Link>

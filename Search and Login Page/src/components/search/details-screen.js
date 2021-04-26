@@ -3,6 +3,9 @@ import {Link, useHistory, useParams} from 'react-router-dom'
 import petService from "../../services/search-services/pet-service"
 import {AuthContext} from "../../App"
 import petSelfService from "../../services/search-services/self-created-pet-service";
+const petFinderKey = "IERoPwTvvsgAtqgT71P7EhCx8nLMCsx4xvvP0zywOA6eSzWWal"
+const petFinderSecret = "InqFifeZbO9QOwtLXTDQROwrzovrIbF2YfKVVl0o"
+
 
 
 
@@ -11,8 +14,40 @@ const DetailsScreen = () => {
     const  history = useHistory();
     const [pet, setPet] = useState({animal:{}})
     const [petResult, setPetResult] = useState([])
-    const accessToken = useContext(AuthContext);
+    // const accessToken = useContext(AuthContext);
+    const [accessToken, setAccessToken] = useState(null);
     useEffect(() => {
+        const fetchAccessToken = async () => {
+            const params = new URLSearchParams();
+            params.append("grant_type", "client_credentials");
+            params.append("client_id", petFinderKey);
+            params.append("client_secret", petFinderSecret);
+            const petfinderRes = await fetch(
+                "https://api.petfinder.com/v2/oauth2/token",
+                {
+                    method: "POST",
+                    body: params,
+                }
+            )
+            const json = await petfinderRes.json()
+            console.log(json.access_token)
+            setAccessToken(json.access_token)
+            // findBreed(breed, accessToken)
+
+            petService.findPetByID(id, json.access_token)
+                .then((breedResults) => {
+                    setPet(breedResults)
+                    console.log(breedResults)
+
+                })
+
+            findSelfBreedById(id)
+
+            // console.log(petBreedResult)
+            // console.log(breedResults)
+        }
+        fetchAccessToken();
+        console.log(id)
         findSelfBreedById(id)
         findPetByID()
     }, [])
