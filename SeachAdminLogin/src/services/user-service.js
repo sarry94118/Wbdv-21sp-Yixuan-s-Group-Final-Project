@@ -2,7 +2,7 @@ import axios from "axios";
 
 // const API_URL = "http://localhost:8090/api/users";
 // const API_URL = "http://localhost:8080/api/users";
-const API_URL = "https://petfinderserver.herokuapp.com/api/users";
+const API_URL = "https://petfinderserver2.herokuapp.com/api/users";
 
 export const findAllUsers = () =>
     fetch(API_URL)

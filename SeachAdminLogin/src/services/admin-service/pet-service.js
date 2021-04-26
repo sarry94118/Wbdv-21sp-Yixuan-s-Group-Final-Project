@@ -1,4 +1,4 @@
-const PET_URL="https://petfinderserver.herokuapp.com/api"
+const PET_URL="https://petfinderserver2.herokuapp.com/api"
 // const PET_URL = "http://localhost:8080/api/";
 // const PET_URL = "http://localhost:8090/api/";
 
