@@ -41,7 +41,7 @@ const Profile =({findUserForUsername, show = false})=> {
     }
 
     useEffect(() => {
-        console.log(useLastLocation)
+        console.log(userId)
         if(useLastLocation !== 123) {
             setLastLocation(useLastLocation)
         }
@@ -137,7 +137,7 @@ const Profile =({findUserForUsername, show = false})=> {
             <NavBar/>
 
             <div>
-                {/*{JSON.stringify(lastLocation.pathname)}*/}
+                {JSON.stringify(lastLocation)}
 
                 {/*{JSON.stringify(lastLocation.pathname && lastLocation.pathname.substr(0,8))}}*/}
                 <button onClick={() => {
@@ -146,7 +146,7 @@ const Profile =({findUserForUsername, show = false})=> {
                 </button>
                 <h3>Profile</h3>
                 {
-                    // lastLocation.pathname === 123 &&
+                   // userId &&
                     (lastLocation.pathname === 123 || (lastLocation.pathname && lastLocation.pathname.substr(0,8) === "/details")) &&
                     <div>
                         <ul>
@@ -169,6 +169,7 @@ const Profile =({findUserForUsername, show = false})=> {
                     </div>
                 }
                 {
+                    // !edited && (userType === "user" || userType === "admin") && !userId &&
                     !edited && (userType === "user" || userType === "admin") && lastLocation.pathname && lastLocation.pathname.substr(0,8) !== "/details" &&
                     <>
                         <div className="form-group">

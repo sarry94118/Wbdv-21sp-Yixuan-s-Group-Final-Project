@@ -54,15 +54,19 @@ const Home = () =>{
 
             <div className="row">
                 <div className="col text-center">
-                    <img src="https://wallpaperaccess.com/full/115488.jpg" width={300} alt="Responsive image"/>
-                    <h2>PetFinder</h2>
+                    <h1>PetFinder</h1>
+                    <img src="https://wallpaperaccess.com/full/115488.jpg" width={550} alt="Responsive image"/>
+                    <br/>
+                    <br/>
+                    <br/>
 
                     <Link to={"/search"}>
-                        <button class="btn btn-default">Search</button>
+
+                        <button type="button" className="btn btn-outline-info btn-lg btn-block">Search</button>
                     </Link>
                     <br/>
                     <Link to={"/login"}>
-                        <button class="btn btn-default">Login</button>
+                        <button type="button" className="btn btn-outline-info btn-lg btn-block">Login</button>
                     </Link>
                 </div>
             </div>

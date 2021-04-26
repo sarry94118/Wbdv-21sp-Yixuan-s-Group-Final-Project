@@ -41,7 +41,7 @@ const PostTable =({
                 {/*{JSON.stringify(pets)}*/}
                 <button onClick={() => {
                     history.goBack()
-                }}>Back to your Profile
+                }}>Back
                 </button>
 
                 {/*<button onClick={() => refreshPage()}>refresh to see update</button>*/}
