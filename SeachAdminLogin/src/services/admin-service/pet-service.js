@@ -1,4 +1,5 @@
-const PET_URL="https://petfinderserver.herokuapp.com/api"
+// const PET_URL="https://petfinderserver.herokuapp.com/api"
+const PET_URL=process.env.REACT_APP_PET_URL
 // const PET_URL = "http://localhost:8080/api/";
 // const PET_URL = "http://localhost:8090/api/";
 
@@ -14,8 +15,18 @@ const findPetsForUser = (userId)=>{
     return fetch(`${PET_URL}/pets/${userId}/pet`).then(res=>res.json())
 }
 
+
 const findPetsByKey = ()=>{}
-const updatePet = ()=>{}
+const updatePet = (petId, pet) =>
+    fetch(`${PET_URL}/pets/${petId}`, {
+        method: 'PUT',
+        credentials: 'same-origin',
+        body: JSON.stringify(pet),
+        headers:{
+            'content-type': 'application/json'
+        }
+    })
+        .then(response => response.json())
 
 const deletePet = (petId)=>{
     return fetch(`${PET_URL}/pets/${petId}`, {

@@ -16,8 +16,8 @@ const Profile =({findUserForUsername, show = false})=> {
     // const [contact, setContact] = useState({})
     const history = useHistory();
     const [shows, setShows] = useState(show)
-    const [isOpen, setIsOpen] = useState(false);
-    const [submitted, setSubmitted] = useState(false);
+    // const [isOpen, setIsOpen] = useState(false);
+    // const [submitted, setSubmitted] = useState(false);
     const [userType, setUserType] = useState("anonymous")
     const [userNameError, setUserNameError] = useState(false);
     const [userTypeError, setUserTypeError] = useState(false);
@@ -54,6 +54,7 @@ const Profile =({findUserForUsername, show = false})=> {
                 userService.findUserById(userId).then(user => {
                     setChangeUser(user)
                     setUserType("anonymous")
+
                 })
             }
         })
@@ -78,10 +79,12 @@ const Profile =({findUserForUsername, show = false})=> {
             setPasswordError(true)
         }
         if(!userNameError && !userTypeError && !emailError && !passwordError){
-            userService.updateUser(userId, changeUser)
+            userService.updateUser(changeUser.userId, changeUser)
                 .then((status) =>{
-                    console.log("profile updata status=" + status)
+                    console.log("profile update status=" + status)
+                    console.log("profile update changeUser =" + JSON.stringify(changeUser))
                     setEdited(false)
+                    // setChangeUser({...changeUser, })
                 })
         }
     }
@@ -169,7 +172,7 @@ const Profile =({findUserForUsername, show = false})=> {
                         </div>
 
                         <div className="form-group">
-                            <label>Password:  {changeUser.password}</label>
+                            <label>Password:  *** </label>
                         </div>
                         <i className="btn btn-primary btn-block" onClick={() => setEdited(true)}>
                             Edit
@@ -194,10 +197,10 @@ const Profile =({findUserForUsername, show = false})=> {
                             <input type="text" className="form-control col-10"
                                    onBlur={(e) =>{
                                        if(e.target.value) {
-                                           setChangeUser({
-                                               ...changeUser,
-                                               username:e.target.value
-                                           })
+                                           // setChangeUser({
+                                           //     ...changeUser,
+                                           //     username:e.target.value
+                                           // })
                                            setUserNameError(false)
                                        }
                                        else{
@@ -205,7 +208,13 @@ const Profile =({findUserForUsername, show = false})=> {
                                        }
                                    }
                                    }
-                                   onChange={()=>setUserNameError(false)}
+                                   onChange={(e)=> {
+                                       setChangeUser({
+                                                       ...changeUser,
+                                                       username:e.target.value
+                                                   })
+                                       setUserNameError(false)
+                                   }}
                                    placeholder="User name"
                                    value={changeUser.username}/>
                         </div>
@@ -288,10 +297,10 @@ const Profile =({findUserForUsername, show = false})=> {
                                    value={changeUser.password}
                                    onBlur={(e) =>{
                                        if(e.target.value) {
-                                           setChangeUser({
-                                               ...changeUser,
-                                               password:e.target.value
-                                           })
+                                           // setChangeUser({
+                                           //     ...changeUser,
+                                           //     password:e.target.value
+                                           // })
                                            setPasswordError(false)
                                        }
                                        else{
@@ -299,7 +308,13 @@ const Profile =({findUserForUsername, show = false})=> {
                                        }
                                    }
                                    }
-                                   onChange={()=>setPasswordError(false)}
+                                   onChange={(e)=> {
+                                       setChangeUser({
+                                           ...changeUser,
+                                           password:e.target.value
+                                       })
+                                       setPasswordError(false)
+                                   }}
                                    placeholder="Enter password" />
                         </div>
                         {
@@ -328,16 +343,17 @@ const Profile =({findUserForUsername, show = false})=> {
                         </i>
                     </Link>
                 }
+                    {/*// <Link to={`/petlist/${changeUser.userId}`}>*/}
                 {
                     userType === "user" &&
-                    <Link to={`/petlist/${changeUser.userId}`}>
+                     <Link to="/admin/pets">
                         <i className="btn btn-primary btn-block">See my post</i>
                     </Link>
                 }
 
             </div>
         </>
-    )
+   )
 }
 // const stmp = (state) => {}
 //

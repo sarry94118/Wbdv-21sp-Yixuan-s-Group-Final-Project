@@ -1,6 +1,10 @@
-const USER_URL="https://petfinderserver.herokuapp.com/api/users"
+// const USER_URL="https://petfinderserver.herokuapp.com/api/users"
 // const USER_URL = "http://localhost:8090/api/users";
 // const USER_URL = "http://localhost:8080/api/users";
+
+const PET_URL=process.env.REACT_APP_PET_URL
+
+const USER_URL = PET_URL + "/users"
 
 const findAllUsers = ()=>{
     return fetch(USER_URL).then(res=>res.json())
@@ -28,6 +32,7 @@ const findUsersByName = ()=>{}
 const findUsersByKey = ()=>{}
 
 const updateUser = (uid, user) =>
+    ///api/users/userid/{uid}
     fetch(`${USER_URL}/userid/${uid}`, {
         method: 'PUT',
         credentials: 'same-origin',

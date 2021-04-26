@@ -1,10 +1,12 @@
+const PET_URL=process.env.REACT_APP_PET_URL
+
 const findBreed= (breed) => {
-    return fetch(`https://petfinderserver.herokuapp.com/api/pets/${breed}`)
+    return fetch(`${PET_URL}/pets/${breed}`)
         .then(response => response.json())
 }
 
 const findPetById = (Id) => {
-    return fetch(`https://petfinderserver.herokuapp.com/api/pet/${Id}`)
+    return fetch(`${PET_URL}/pet/${Id}`)
         .then(response => response.json())
 }
 

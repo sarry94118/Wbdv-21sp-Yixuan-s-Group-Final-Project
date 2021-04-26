@@ -4,46 +4,44 @@ import {Link} from "react-router-dom";
 import petService from "../../../services/admin-service/pet-service"
 import sessionUserService from "../../../services/user-service"
 import PetRow from "./pet-row";
+import userService from "../../../services/admin-service/user-service";
+import {connect} from "react-redux";
 
-const PetList =()=>{
+const PetList =({pets, findAllPets, findPetsForUser, deletePet})=>{
 
-    const [pets, setPets] = useState([])
+    // const [pets, setPets] = useState([])
     const [currentUser, setCurrentUser] = useState({})
 
     useEffect(()=>{
         sessionUserService.profile().then(user => {
             if(user !== null && user.username !== null){
                 setCurrentUser(user)
-                console.log("changeUser.username = " + currentUser.username)
+                console.log("pet-list changeUser.username = " + currentUser.username)
+                if(user.userType === "admin"){
+                    console.log("admin view petlist ")
+                    findAllPets()
+                }else{
+                    console.log(user.username + " view petlist ")
+                    findPetsForUser(user.userId)
+                }
             }else{
                 alert("Please login first")
             }
         })
-        petService.findAllPets().then(pets=> {
-            console.log(pets.length)
-            setPets(pets)
-        })
     }, [])
 
-    const deletePet = (petId)=>{
-        petService.deletePet(petId)
-            .then((deletedPet)=>pets.filter(pet => {
-                if(pet.petId === deletedPet) {
-                    return false;
-                } else{
-                    return true;
-                }
-            }))
-    }
 
     return <div>
         <div className="nav nav-tabs wm-auto-margin">
             <div className="nav-item">
-                <Link className="nav-link" to="/admin/users">User</Link>
+                {
+                    currentUser.userType === "admin" &&
+                    <Link className="nav-link" to="/admin/users">User</Link>
+                }
                 <Link className="nav-link active" to="/admin/pets">
                     Pet
                 </Link>
-                <Link to={`/users/${currentUser.username}/report/pet`}>
+                <Link to={`/users/report/report/pet`}>
                     <i className="fas fa-plus wm-icon"></i>
                 </Link>
             </div>
@@ -77,4 +75,28 @@ const PetList =()=>{
     </div>
 }
 
-export default PetList
+const stpm = (state) => {
+    return {
+        pets: state.adminPetReducer.pets
+    }
+}
+
+const dtpm = (dispatch) =>{
+
+    return {
+        findAllPets : () =>
+            petService.findAllPets()
+                .then(pets=>dispatch({type: "FIND_ALL_PETS", pets})),
+        findPetsForUser : (userId) =>
+            petService.findPetsForUser(userId)
+                .then(pets => dispatch({type: "FIND_PETS_FOR_USER", pets})),
+        deletePet : (delPetId)=> {
+            console.log("delete pet = " + delPetId)
+            petService.deletePet(delPetId).then(
+                dispatch({type: "ADMIN_DELETE_USER", petIdToDelete: delPetId}),
+            )
+        }
+    }
+}
+
+export default connect(stpm, dtpm)(PetList)

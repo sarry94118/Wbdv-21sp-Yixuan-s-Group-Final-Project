@@ -3,7 +3,10 @@ import {resetFirstInputPolyfill} from "web-vitals/dist/modules/lib/polyfills/fir
 
 // const API_URL = "http://localhost:8090/api/pets";
 // const API_URL = "http://localhost:8080/api/pets";
-const API_URL = "https://petfinderserver.herokuapp.com/api/pets";
+// const API_URL = "https://petfinderserver.herokuapp.com/api/pets";
+const PET_URL=process.env.REACT_APP_PET_URL
+
+const API_URL = PET_URL + "/pets"
 
 export const findAllPets = () =>
     fetch(API_URL)

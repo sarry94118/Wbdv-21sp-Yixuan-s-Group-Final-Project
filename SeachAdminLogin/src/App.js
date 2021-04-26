@@ -21,6 +21,8 @@ import Admin from "./components/admin/admin";
 import PetTab from "./components/admin/pet/pet_tab";
 import PetReport from "./components/admin/pet/pet-report";
 import UserDetail from "./components/admin/user/user_detail";
+import UserList from "./components/admin/user/user-list";
+import PetList from "./components/admin/pet/pet-list";
 
 export const AuthContext = createContext();
 const petFinderKey = "IERoPwTvvsgAtqgT71P7EhCx8nLMCsx4xvvP0zywOA6eSzWWal"
@@ -110,13 +112,20 @@ const App = () => {
                     exact={true}
                     component={Admin}>
                 </Route>
+                {/*<Route path="/admin/users">*/}
+                {/*    <UserList />*/}
+                {/*</Route>*/}
+                {/*<Route path="/admin/pets">*/}
+                {/*    <PetList />*/}
+                {/*</Route>*/}
+
                 <Route
                     path={["/users/:userId/pets", "/users/:userId/pets/:petId"]}
                     exact={true}
                     component={PetTab}>
                 </Route>
                 <Route
-                    path={ "/users/:userId/report/pet"}
+                    path={ ["/users/report/:edit/pet", "/users/report/:edit/pet/:petId"]}
                     exact={true}
                     component={PetReport}>
                 </Route>

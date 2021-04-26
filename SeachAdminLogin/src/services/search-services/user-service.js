@@ -1,5 +1,7 @@
+const PET_URL=process.env.REACT_APP_PET_URL
+
 const findUserByUserId= (userId) => {
-    return fetch(`https://petfinderserver.herokuapp.com/api/users/userid/${userId}`)
+    return fetch(`${PET_URL}/users/userid/${userId}`)
         .then(response => response.json())
 }
 

@@ -2,7 +2,11 @@ import axios from "axios";
 
 // const API_URL = "http://localhost:8090/api/users";
 // const API_URL = "http://localhost:8080/api/users";
-const API_URL = "https://petfinderserver.herokuapp.com/api/users";
+// const API_URL = "https://petfinderserver.herokuapp.com/api/users";
+
+const PET_URL=process.env.REACT_APP_PET_URL
+
+const API_URL = PET_URL + "/users"
 
 export const findAllUsers = () =>
     fetch(API_URL)
