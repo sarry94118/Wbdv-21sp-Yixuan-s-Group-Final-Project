@@ -1,4 +1,8 @@
+// <<<<<<< HEAD
 // const USER_URL="https://petfinderserver.herokuapp.com/api/users"
+// =======
+// const USER_URL="https://petfinderserver2.herokuapp.com/api/users"
+{/*>>>>>>> 540f506ba4b6e8f62a29b143bd175e2b361f2089*/}
 // const USER_URL = "http://localhost:8090/api/users";
 // const USER_URL = "http://localhost:8080/api/users";
 
