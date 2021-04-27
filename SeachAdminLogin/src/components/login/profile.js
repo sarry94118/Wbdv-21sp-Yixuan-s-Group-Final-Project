@@ -19,7 +19,7 @@ const Profile =({findUserForUsername, show = false})=> {
     const history = useHistory();
     const [shows, setShows] = useState(show)
     // const [isOpen, setIsOpen] = useState(false);
-    const [submitted, setSubmitted] = useState(false);
+    // const [submitted, setSubmitted] = useState(false);
     const [userType, setUserType] = useState("anonymous")
     const [userNameError, setUserNameError] = useState(false);
     const [userTypeError, setUserTypeError] = useState(false);
@@ -409,7 +409,7 @@ const Profile =({findUserForUsername, show = false})=> {
                     {/*// <Link to={`/petlist/${changeUser.userId}`}>*/}
                 {
                     userType === "user" &&
-                    <Link to={`/petlist/${changeUser.userId}`}>
+                     <Link to="/admin/pets">
                         <i className="btn btn-primary btn-block">See my post</i>
                     </Link>
                 }

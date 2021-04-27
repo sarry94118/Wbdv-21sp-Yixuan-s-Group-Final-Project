@@ -7,6 +7,7 @@ import PetRow from "./pet-row";
 import userService from "../../../services/admin-service/user-service";
 import {connect} from "react-redux";
 
+// const PetList =({pets, findAllPets, findPetsForUser, deletePet})=>{
 const PetList =({pets, findAllPets, findPetsForUser, deletePet, updatePet})=>{
 
     // const [pets, setPets] = useState([])
