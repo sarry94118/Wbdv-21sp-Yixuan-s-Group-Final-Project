@@ -57,12 +57,14 @@ const Profile =({findUserForUsername, show = false})=> {
                 if(user.userType === "user"){
                     console.log("someone view it's own profile")
                     setChangeUser(user)
-                }else if(user.userType === "admin"){
+                }else if(user.userType === "admin" && userId){
                     console.log("admin view "+ userId + "'s profile")
                     userService.findUserById(userId).then(currentUser => {
                         console.log("currentUser= " + JSON.stringify(currentUser))
                         setChangeUser(currentUser)
                     })
+                }else if(user.userType === "admin" && !userId){
+                    setChangeUser(user)
                 }
             } else {
                 console.log("anonymous view someone else's profile")
@@ -153,7 +155,7 @@ const Profile =({findUserForUsername, show = false})=> {
                             {/*{JSON.stringify(contact)}*/}
                             {/*<h5>from search</h5>*/}
                             {
-                                !lastLocation && userType === "anonymous" && contact &&
+                                userType === "anonymous" && contact &&
                                 <li className="list-group-item" key={contact.userId}>
 
                                     <h3>First Name: {contact.firstName}</h3>
@@ -193,6 +195,7 @@ const Profile =({findUserForUsername, show = false})=> {
                     // !edited && (userType === "user" || userType === "admin") && !userId &&
                     // !edited && (userType === "user" || userType === "admin") && lastLocation && lastLocation.pathname && lastLocation.pathname.substr(0,8) !== "/details" &&
                     <>
+
                         <div className="form-group">
                             <label>User Name:  {changeUser.username}</label>
 
@@ -226,6 +229,8 @@ const Profile =({findUserForUsername, show = false})=> {
                     // !edited && (userType === "user" || userType === "admin") && !userId &&
                     // !edited && (userType === "user" || userType === "admin") && lastLocation && lastLocation.pathname && lastLocation.pathname.substr(0,8) !== "/details" &&
                     <>
+                        {/*<h4>dsad</h4>*/}
+                        {/*{JSON.stringify(changeUser)}*/}
                         <div className="form-group">
                             <label>User Name:  {changeUser.username}</label>
 
