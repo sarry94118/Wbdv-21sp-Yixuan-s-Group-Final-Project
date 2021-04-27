@@ -1,0 +1,115 @@
+/* shared css from Rae*/
+.navbar-light {
+    background-color: #ffffff;
+    box-shadow: 0px 14px 80px rgba(34, 35, 58, 0.2);
+}
+
+.wm-nav-item{
+    display: flex;
+}
+
+.auth-wrapper {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    text-align: left;
+}
+
+.auth-inner {
+    width: 90%;
+    margin: 100px auto auto;
+    background: #ffffff;
+    box-shadow: 0px 14px 80px rgba(34, 35, 58, 0.2);
+    padding: 40px 100px 45px 55px;
+    border-radius: 15px;
+    transition: all .3s;
+}
+
+.auth-wrapper .form-control:focus {
+    border-color: #167bff;
+    box-shadow: none;
+}
+
+.auth-wrapper h3 {
+    text-align: center;
+    margin: 0;
+    line-height: 1;
+    padding-bottom: 20px;
+}
+
+.wm-sticky-Nav-Bar{
+    position:fixed;
+    padding: 10px;
+    width: 100%;
+    z-index: 2;
+}
+
+.wm-course-manage-size{
+    font-size: 20px;
+    margin-left: 15px;
+}
+
+.wm-background{
+    background-color: white;
+}
+
+/*a.nav-link{*/
+/*    color: white;*/
+/*}*/
+
+.wm-icon{
+    margin-left: 10px;
+}
+
+.wm-floating-child{
+    position:absolute;
+    top: 200px;
+    right: 250px;
+}
+
+.nav-link{
+    display: inline;
+}
+
+/*user_list*/
+.wm-table{
+    width: 50%;
+    margin:0 auto;
+}
+
+.wm-table-label{
+    border-right: 1px solid #dee2e6;
+    text-align: right;
+    width: 50%;
+}
+
+.wm-table-content{
+    text-align: left;
+}
+
+/*pet_list*/
+/*.wm_pet_info{*/
+/*    !*width: 80%;*!*/
+/*    !*background: whitesmoke;*!*/
+/*    text-align: left;*/
+/*    !*margin: 0 auto;*!*/
+/*}*/
+
+.wm_align_middle{
+    width:80%;
+
+}
+
+.wm-auto-margin{
+    margin: auto;
+}
+
+.wm-card{
+    /*height: 380px;*/
+    margin-bottom: 30px;
+    display: block;
+}
+
+.wm-botton-margin{
+    margin-bottom: 10px;
+}
