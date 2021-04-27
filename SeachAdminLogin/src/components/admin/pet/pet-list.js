@@ -13,6 +13,7 @@ const PetList =({pets, findAllPets, findPetsForUser, deletePet, updatePet})=>{
     const [currentUser, setCurrentUser] = useState({})
 
     useEffect(()=>{
+        findAllPets()
         sessionUserService.profile().then(user => {
             if(user !== null && user.username !== null){
                 setCurrentUser(user)
@@ -91,9 +92,9 @@ const dtpm = (dispatch) =>{
             petService.findPetsForUser(userId)
                 .then(pets => dispatch({type: "FIND_PETS_FOR_USER", pets})),
         deletePet : (delPetId)=> {
-            console.log("delete pet = " + delPetId)
-            petService.deletePet(delPetId).then(
-                dispatch({type: "ADMIN_DELETE_USER", petIdToDelete: delPetId}),
+            console.log("delete pet = " + delPetId.petId)
+            petService.deletePet(delPetId.petId).then(
+                dispatch({type: "ADMIN_DELETE_USER", petIdToDelete: delPetId.petId}),
             )
         },
         updatePet: (petId, pet) => {

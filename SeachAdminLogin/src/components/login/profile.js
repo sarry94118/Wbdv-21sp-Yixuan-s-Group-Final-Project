@@ -25,7 +25,7 @@ const Profile =({findUserForUsername, show = false})=> {
     const [userTypeError, setUserTypeError] = useState(false);
     const [emailError, setEmailError] = useState(false);
     const [passwordError, setPasswordError] = useState(false);
-    const [lastLocation, setLastLocation] = useState({pathname:123})
+    const [lastLocation, setLastLocation] = useState({pathname:"abc"})
 
     // const lastLocation = useLastLocation();
 
@@ -42,7 +42,8 @@ const Profile =({findUserForUsername, show = false})=> {
 
     useEffect(() => {
         console.log(userId)
-        if(useLastLocation !== 123) {
+        setLastLocation({pathname:"abc"})
+        if(useLastLocation !== null) {
             setLastLocation(useLastLocation)
         }
         console.log(lastLocation)
@@ -113,7 +114,7 @@ const Profile =({findUserForUsername, show = false})=> {
                 console.log(contact)
                 console.log("updatepuppy")
                 console.log(changeUser)
-                console.log(lastLocation)
+                // console.log(lastLocation.pathname)
             })
         console.log(contact)
     }
@@ -137,7 +138,9 @@ const Profile =({findUserForUsername, show = false})=> {
             <NavBar/>
 
             <div>
-                {JSON.stringify(lastLocation)}
+
+                {/*{JSON.stringify(changeUser)}*/}
+
 
                 {/*{JSON.stringify(lastLocation.pathname && lastLocation.pathname.substr(0,8))}}*/}
                 <button onClick={() => {
@@ -146,8 +149,26 @@ const Profile =({findUserForUsername, show = false})=> {
                 </button>
                 <h3>Profile</h3>
                 {
+                    !lastLocation && userType === "anonymous" && contact &&
+                    <li className="list-group-item" key={contact.userId}>
+
+                        <h3>First Name: {contact.firstName}</h3>
+                        <h3>Last Name: {contact.lastName}</h3>
+                        <h3>Contact email address: {contact.email}</h3>
+                        <br/>
+                        <Link to={`/login`}>
+                            <button type="button" className="btn btn-outline-info btn-lg btn-block">log in to post pet information!</button>
+                        </Link>
+
+
+                        <br/>
+
+                    </li>
+                }
+
+                {
                    // userId &&
-                    (lastLocation.pathname === 123 || (lastLocation.pathname && lastLocation.pathname.substr(0,8) === "/details")) &&
+                    (!lastLocation || (lastLocation && lastLocation.pathname && lastLocation.pathname.substr(0,8) === "/details")) && userId  && (userType === "user" ||  userType === "admin") &&
                     <div>
                         <ul>
                             {/*{JSON.stringify(contact)}*/}
@@ -160,6 +181,7 @@ const Profile =({findUserForUsername, show = false})=> {
                                     <h3>Last Name: {contact.lastName}</h3>
                                     <h3>Contact email address: {contact.email}</h3>
                                     <br/>
+                                    <h4>Please log in to post any missing pet information!</h4>
                                     <br/>
 
                                 </li>
@@ -170,7 +192,7 @@ const Profile =({findUserForUsername, show = false})=> {
                 }
                 {
                     // !edited && (userType === "user" || userType === "admin") && !userId &&
-                    !edited && (userType === "user" || userType === "admin") && lastLocation.pathname && lastLocation.pathname.substr(0,8) !== "/details" &&
+                    (!edited && (userType === "user" || userType === "admin")) && ((lastLocation && lastLocation.pathname && !lastLocation.pathname.substr(0,8) !== "/details") || !lastLocation) && !userId &&
                     <>
                         <div className="form-group">
                             <label>User Name:  {changeUser.username}</label>

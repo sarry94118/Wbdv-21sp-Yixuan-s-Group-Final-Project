@@ -107,7 +107,7 @@ const Register =({addUser, user}) => {
                 {
                     !isAdmin && <h3>Sign up</h3>
                 }
-                {JSON.stringify(changeUser)}
+                {/*{JSON.stringify(changeUser)}*/}
                 <div className="container-fluid">
                 <div className="form-group row">
                     <label className="col-2">

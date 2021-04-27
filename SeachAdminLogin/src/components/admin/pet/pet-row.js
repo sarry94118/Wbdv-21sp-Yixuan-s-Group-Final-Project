@@ -32,7 +32,7 @@ const PetRow = ({
             <td>{pet.age}</td>
             <td>{pet.status}</td>
             <td><Link to={`/users/${pet.userId}`}>{userName}</Link></td>
-            <td><i className="fas fa-times float-right" onClick={()=>deletePet(pet.petId)}/></td>
+            <td><i className="fas fa-times float-right" onClick={()=>deletePet(pet)}/></td>
         </tr>
     </>
 }

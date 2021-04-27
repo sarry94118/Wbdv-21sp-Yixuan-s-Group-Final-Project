@@ -12,13 +12,8 @@ const AdminPetReducer = (preState=initialState, action) => {
             }
         case "ADMIN_DELETE_PET":
             return {...preState,
-                pets: preState.pets.filter(pet => {
-                    if(pet.petId === action.petIdToDelete) {
-                        return false;
-                    } else{
-                        return true;
-                    }
-                })
+                pets: preState.pets.filter(
+                    pet => pet.petId === action.petIdToDelete? false : true)
             }
         case "UPDATE_PET":
             return {
