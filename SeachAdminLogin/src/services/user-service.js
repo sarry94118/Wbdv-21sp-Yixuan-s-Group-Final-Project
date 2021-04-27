@@ -2,15 +2,25 @@ import axios from "axios";
 
 // const API_URL = "http://localhost:8090/api/users";
 // const API_URL = "http://localhost:8080/api/users";
-<<<<<<< HEAD
+// <<<<<<< HEAD
+// <<<<<<< HEAD
+{/*=======*/}
+// <<<<<<< HEAD
+// >>>>>>> 441cf0e02bfc4e5cf70da01ac18432764e4cbf68
 // const API_URL = "https://petfinderserver.herokuapp.com/api/users";
 
 const PET_URL=process.env.REACT_APP_PET_URL
 
 const API_URL = PET_URL + "/users"
-=======
-const API_URL = "https://petfinderserver2.herokuapp.com/api/users";
->>>>>>> 540f506ba4b6e8f62a29b143bd175e2b361f2089
+// <<<<<<< HEAD
+// =======
+// const API_URL = "https://petfinderserver2.herokuapp.com/api/users";
+// >>>>>>> 540f506ba4b6e8f62a29b143bd175e2b361f2089
+// =======
+// =======
+// const API_URL = "https://petfinderserver2.herokuapp.com/api/users";
+// >>>>>>> 540f506ba4b6e8f62a29b143bd175e2b361f2089
+// >>>>>>> 441cf0e02bfc4e5cf70da01ac18432764e4cbf68
 
 export const findAllUsers = () =>
     fetch(API_URL)
@@ -43,6 +53,17 @@ export const updateUser = (uid, user) =>
         }
     })
         .then(response => response.json())
+
+
+export const findUserByUserId =(uid) =>
+    fetch(`${API_URL}/userid/${uid}`)
+        .then(response => {
+            if (response) {
+                return response.json()
+            }else{
+                return null
+            }
+        })
 
 // @GetMapping("/api/users/username/{user}")
 export const findUserForUsername= (username) =>
@@ -131,6 +152,7 @@ export default {
     deleteUser,
     updateUser,
     findUserForUsername,
+    findUserByUserId,
     findAllUsers,
     register,
     login,

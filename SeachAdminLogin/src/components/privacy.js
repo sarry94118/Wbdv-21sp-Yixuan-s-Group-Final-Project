@@ -41,6 +41,8 @@ const Privacy =() => {
             </p>
             <p>We may use your email address to communicate with you when it’s necessary.</p>
             <p>We use your posts to collect information for search function, and help you to find your pet</p>
+            <p>We use your posts to collect information for search function, and help you to find your pet</p>
+            <p>We use cookies in order to improve your user experience by enabling that website to 'remember' you,</p>
 
 
         </div>

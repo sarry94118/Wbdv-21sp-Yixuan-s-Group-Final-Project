@@ -7,6 +7,7 @@ import {BrowserRouter, Route, Link, useHistory} from "react-router-dom";
 import UserManagement from "./components/user-management"
 import PetListMainPage from "./components/table/pet-list-main-page";
 import PetCardMainPage from "./components/grid/pet-card-main-page"
+import { LastLocationProvider } from 'react-router-last-location';
 
 
 import SearchScreen from "./components/search/search-screen";
@@ -36,7 +37,7 @@ const App = () => {
     return (
 
             <BrowserRouter>
-
+            <LastLocationProvider>
             <div className="App">
             <div className="container-fluid">
             {/*<nav className="navbar navbar-expand-lg navbar-light fixed-top">*/}
@@ -78,8 +79,12 @@ const App = () => {
           <div className="auth-wrapper">
             <div className="auth-inner">
 
+                {/*<Route path="/usermanage" exact={true}>*/}
+                {/*    <UserManagement/>*/}
+
+                {/*</Route>*/}
               <Route path="/">
-                <UserManagement/>
+                  <UserManagement/>
               </Route>
               <Route path={["/petlist/:userId"]} exact={true}>
                 <PetListMainPage/>
@@ -143,6 +148,7 @@ const App = () => {
         </div>
 
         </div>
+            </LastLocationProvider>
         </BrowserRouter>
 
   );

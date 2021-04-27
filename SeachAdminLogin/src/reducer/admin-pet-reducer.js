@@ -20,6 +20,11 @@ const AdminPetReducer = (preState=initialState, action) => {
                     }
                 })
             }
+        case "UPDATE_PET":
+            return {
+
+                pets: preState.pets.filter(pet => pet.petId !== action.pet.petId ? pet : action.pet)
+            }
         default: return preState
     }
 }

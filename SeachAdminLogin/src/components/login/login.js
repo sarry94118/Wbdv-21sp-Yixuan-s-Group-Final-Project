@@ -45,8 +45,8 @@ const Login = ({findUserForUsername, users, updateUser, user}) => {
             <form>
                 <NavBar />
                 <h3>Login</h3>
-                {JSON.stringify(user)}
-                {JSON.stringify(changeUser)}
+                {/*{JSON.stringify(user)}*/}
+                {/*{JSON.stringify(changeUser)}*/}
                 <div className="form-group">
                     <label>Username</label>
 

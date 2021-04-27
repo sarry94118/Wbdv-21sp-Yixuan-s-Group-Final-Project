@@ -7,7 +7,8 @@ import PetRow from "./pet-row";
 import userService from "../../../services/admin-service/user-service";
 import {connect} from "react-redux";
 
-const PetList =({pets, findAllPets, findPetsForUser, deletePet})=>{
+// const PetList =({pets, findAllPets, findPetsForUser, deletePet})=>{
+const PetList =({pets, findAllPets, findPetsForUser, deletePet, updatePet})=>{
 
     // const [pets, setPets] = useState([])
     const [currentUser, setCurrentUser] = useState({})
@@ -95,7 +96,14 @@ const dtpm = (dispatch) =>{
             petService.deletePet(delPetId).then(
                 dispatch({type: "ADMIN_DELETE_USER", petIdToDelete: delPetId}),
             )
-        }
+        },
+        updatePet: (petId, pet) => {
+            petService.updatePet(petId, pet)
+                .then(status => dispatch({
+                    type: "UPDATE_PET",
+                    pet: pet
+                }))
+        },
     }
 }
 

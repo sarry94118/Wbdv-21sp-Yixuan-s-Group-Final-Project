@@ -51,7 +51,9 @@ const NavBar = ()=>{
                       loginOrNot &&
                           <>
                       <li className="nav-item">
+                          <Link to={`/profile`} className="nav-link">
                           Hello, {userName}
+                          </Link>
                       </li>
                       <li className="nav-item">
                           <Link className="nav-link" onClick={logout}>
